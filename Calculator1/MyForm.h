@@ -63,7 +63,8 @@ namespace Calculator1 {
 
 	private: System::Windows::Forms::Button^ button11;
 	private: System::Windows::Forms::Button^ button12;
-	private: System::Windows::Forms::Button^ button13;
+	private: System::Windows::Forms::Button^ CE_Button;
+
 	private: System::Windows::Forms::Button^ plusminusButton;
 
 
@@ -100,7 +101,7 @@ namespace Calculator1 {
 			this->square2Button = (gcnew System::Windows::Forms::Button());
 			this->button11 = (gcnew System::Windows::Forms::Button());
 			this->button12 = (gcnew System::Windows::Forms::Button());
-			this->button13 = (gcnew System::Windows::Forms::Button());
+			this->CE_Button = (gcnew System::Windows::Forms::Button());
 			this->plusminusButton = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
@@ -324,7 +325,7 @@ namespace Calculator1 {
 			// 
 			this->powButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->powButton->Location = System::Drawing::Point(184, 93);
+			this->powButton->Location = System::Drawing::Point(12, 193);
 			this->powButton->Name = L"powButton";
 			this->powButton->Size = System::Drawing::Size(80, 80);
 			this->powButton->TabIndex = 19;
@@ -336,7 +337,7 @@ namespace Calculator1 {
 			// 
 			this->squareButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->squareButton->Location = System::Drawing::Point(270, 93);
+			this->squareButton->Location = System::Drawing::Point(184, 93);
 			this->squareButton->Name = L"squareButton";
 			this->squareButton->Size = System::Drawing::Size(80, 80);
 			this->squareButton->TabIndex = 20;
@@ -360,7 +361,7 @@ namespace Calculator1 {
 			// 
 			this->square2Button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->square2Button->Location = System::Drawing::Point(12, 193);
+			this->square2Button->Location = System::Drawing::Point(12, 293);
 			this->square2Button->Name = L"square2Button";
 			this->square2Button->Size = System::Drawing::Size(80, 80);
 			this->square2Button->TabIndex = 26;
@@ -388,15 +389,17 @@ namespace Calculator1 {
 			this->button12->TabIndex = 24;
 			this->button12->UseVisualStyleBackColor = true;
 			// 
-			// button13
+			// CE_Button
 			// 
-			this->button13->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->CE_Button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->button13->Location = System::Drawing::Point(12, 293);
-			this->button13->Name = L"button13";
-			this->button13->Size = System::Drawing::Size(80, 80);
-			this->button13->TabIndex = 23;
-			this->button13->UseVisualStyleBackColor = true;
+			this->CE_Button->Location = System::Drawing::Point(270, 93);
+			this->CE_Button->Name = L"CE_Button";
+			this->CE_Button->Size = System::Drawing::Size(80, 80);
+			this->CE_Button->TabIndex = 23;
+			this->CE_Button->Text = L"CE";
+			this->CE_Button->UseVisualStyleBackColor = true;
+			this->CE_Button->Click += gcnew System::EventHandler(this, &MyForm::CE_Button_Click);
 			// 
 			// plusminusButton
 			// 
@@ -418,7 +421,7 @@ namespace Calculator1 {
 			this->Controls->Add(this->square2Button);
 			this->Controls->Add(this->button11);
 			this->Controls->Add(this->button12);
-			this->Controls->Add(this->button13);
+			this->Controls->Add(this->CE_Button);
 			this->Controls->Add(this->plusminusButton);
 			this->Controls->Add(this->clearButton);
 			this->Controls->Add(this->squareButton);
@@ -521,6 +524,13 @@ namespace Calculator1 {
 
 	}
 
+	private: System::Void CE_Button_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		if (textBox1->Text->Length >= 1) {
+			textBox1->Text = textBox1->Text->Remove(textBox1->Text->Length - 1, 1);
+		}
+	}
+
 	private: System::Void equalButton_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		secondNumber = Double::Parse(textBox1->Text);
@@ -557,6 +567,7 @@ namespace Calculator1 {
 		}
 	}
 	
+
 
 };
 }
