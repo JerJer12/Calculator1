@@ -445,6 +445,7 @@ namespace Calculator1 {
 			this->FactorialButton->TabIndex = 28;
 			this->FactorialButton->Text = L"x!";
 			this->FactorialButton->UseVisualStyleBackColor = true;
+			this->FactorialButton->Click += gcnew System::EventHandler(this, &MyForm::FactorialButton_Click);
 			// 
 			// sinButton
 			// 
@@ -480,6 +481,7 @@ namespace Calculator1 {
 			this->LnButton->TabIndex = 32;
 			this->LnButton->Text = L"ln";
 			this->LnButton->UseVisualStyleBackColor = true;
+			this->LnButton->Click += gcnew System::EventHandler(this, &MyForm::LnButton_Click);
 			// 
 			// LogButton
 			// 
@@ -491,6 +493,7 @@ namespace Calculator1 {
 			this->LogButton->TabIndex = 31;
 			this->LogButton->Text = L"log";
 			this->LogButton->UseVisualStyleBackColor = true;
+			this->LogButton->Click += gcnew System::EventHandler(this, &MyForm::LogButton_Click);
 			// 
 			// MyForm
 			// 
@@ -650,6 +653,30 @@ namespace Calculator1 {
 	
 	}
 
+	private: System::Void FactorialButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		
+		firstNumber = Double::Parse(textBox1->Text);
+		result = 1;
+		for (int i = 1; i <= firstNumber; i++) {
+			result = result * i;
+		}
+		textBox1->Text = System::Convert::ToString(result);
+	}
+
+	private: System::Void LnButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		firstNumber = Double::Parse(textBox1->Text);
+		result = log(firstNumber);
+		textBox1->Text = System::Convert::ToString(result);
+	
+	}
+
+	private: System::Void LogButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		firstNumber = Double::Parse(textBox1->Text);
+		result = log10(firstNumber);
+		textBox1->Text = System::Convert::ToString(result);
+	
+	}
+
 	private: System::Void equalButton_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		secondNumber = Double::Parse(textBox1->Text);
@@ -686,6 +713,7 @@ namespace Calculator1 {
 		}
 	}
 	
+
 
 };
 }
