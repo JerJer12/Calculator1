@@ -371,7 +371,7 @@ namespace Calculator1 {
 			this->clearButton->Name = L"clearButton";
 			this->clearButton->Size = System::Drawing::Size(80, 80);
 			this->clearButton->TabIndex = 21;
-			this->clearButton->Text = L"Clear";
+			this->clearButton->Text = L"AC";
 			this->clearButton->UseVisualStyleBackColor = true;
 			this->clearButton->Click += gcnew System::EventHandler(this, &MyForm::clearButton_Click);
 			// 
@@ -433,6 +433,7 @@ namespace Calculator1 {
 			this->CosButton->TabIndex = 29;
 			this->CosButton->Text = L"cos";
 			this->CosButton->UseVisualStyleBackColor = true;
+			this->CosButton->Click += gcnew System::EventHandler(this, &MyForm::CosButton_Click);
 			// 
 			// FactorialButton
 			// 
@@ -444,7 +445,6 @@ namespace Calculator1 {
 			this->FactorialButton->TabIndex = 28;
 			this->FactorialButton->Text = L"x!";
 			this->FactorialButton->UseVisualStyleBackColor = true;
-			this->FactorialButton->Click += gcnew System::EventHandler(this, &MyForm::button11_Click);
 			// 
 			// sinButton
 			// 
@@ -456,6 +456,7 @@ namespace Calculator1 {
 			this->sinButton->TabIndex = 27;
 			this->sinButton->Text = L"sin";
 			this->sinButton->UseVisualStyleBackColor = true;
+			this->sinButton->Click += gcnew System::EventHandler(this, &MyForm::sinButton_Click);
 			// 
 			// tanButton
 			// 
@@ -467,6 +468,7 @@ namespace Calculator1 {
 			this->tanButton->TabIndex = 30;
 			this->tanButton->Text = L"tan";
 			this->tanButton->UseVisualStyleBackColor = true;
+			this->tanButton->Click += gcnew System::EventHandler(this, &MyForm::tanButton_Click);
 			// 
 			// LnButton
 			// 
@@ -478,7 +480,6 @@ namespace Calculator1 {
 			this->LnButton->TabIndex = 32;
 			this->LnButton->Text = L"ln";
 			this->LnButton->UseVisualStyleBackColor = true;
-			this->LnButton->Click += gcnew System::EventHandler(this, &MyForm::button14_Click);
 			// 
 			// LogButton
 			// 
@@ -490,7 +491,6 @@ namespace Calculator1 {
 			this->LogButton->TabIndex = 31;
 			this->LogButton->Text = L"log";
 			this->LogButton->UseVisualStyleBackColor = true;
-			this->LogButton->Click += gcnew System::EventHandler(this, &MyForm::button15_Click);
 			// 
 			// MyForm
 			// 
@@ -628,6 +628,28 @@ namespace Calculator1 {
 		
 	}
 
+	private: System::Void sinButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		firstNumber = Double::Parse(textBox1->Text);
+		result = sin(firstNumber);
+		textBox1->Text = System::Convert::ToString(result);
+		
+
+	}
+
+	private: System::Void CosButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		firstNumber = Double::Parse(textBox1->Text);
+		result = cos(firstNumber);
+		textBox1->Text = System::Convert::ToString(result);
+	
+	}
+
+	private: System::Void tanButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		firstNumber = Double::Parse(textBox1->Text);
+		result = tan(firstNumber);
+		textBox1->Text = System::Convert::ToString(result);
+	
+	}
+
 	private: System::Void equalButton_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		secondNumber = Double::Parse(textBox1->Text);
@@ -665,11 +687,5 @@ namespace Calculator1 {
 	}
 	
 
-
-
-
-
-private: System::Void button14_Click(System::Object^ sender, System::EventArgs^ e) {
-}
 };
 }
