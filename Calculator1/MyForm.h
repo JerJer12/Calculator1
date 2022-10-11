@@ -78,6 +78,7 @@ namespace Calculator1 {
 	private: System::Windows::Forms::Button^ LnButton;
 
 	private: System::Windows::Forms::Button^ LogButton;
+	private: System::Windows::Forms::Button^ expButton;
 
 
 
@@ -121,6 +122,7 @@ namespace Calculator1 {
 			this->tanButton = (gcnew System::Windows::Forms::Button());
 			this->LnButton = (gcnew System::Windows::Forms::Button());
 			this->LogButton = (gcnew System::Windows::Forms::Button());
+			this->expButton = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// button1
@@ -495,11 +497,24 @@ namespace Calculator1 {
 			this->LogButton->UseVisualStyleBackColor = true;
 			this->LogButton->Click += gcnew System::EventHandler(this, &MyForm::LogButton_Click);
 			// 
+			// expButton
+			// 
+			this->expButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->expButton->Location = System::Drawing::Point(184, 288);
+			this->expButton->Name = L"expButton";
+			this->expButton->Size = System::Drawing::Size(80, 80);
+			this->expButton->TabIndex = 33;
+			this->expButton->Text = L"exp";
+			this->expButton->UseVisualStyleBackColor = true;
+			this->expButton->Click += gcnew System::EventHandler(this, &MyForm::expButton_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(650, 586);
+			this->Controls->Add(this->expButton);
 			this->Controls->Add(this->LnButton);
 			this->Controls->Add(this->LogButton);
 			this->Controls->Add(this->tanButton);
@@ -677,6 +692,13 @@ namespace Calculator1 {
 	
 	}
 
+	private: System::Void expButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		firstNumber = Double::Parse(textBox1->Text);
+		result = exp(firstNumber);
+		textBox1->Text = System::Convert::ToString(result);
+
+	}
+
 	private: System::Void equalButton_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		secondNumber = Double::Parse(textBox1->Text);
@@ -713,7 +735,6 @@ namespace Calculator1 {
 		}
 	}
 	
-
 
 };
 }
