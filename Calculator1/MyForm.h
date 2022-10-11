@@ -64,7 +64,8 @@ namespace Calculator1 {
 	private: System::Windows::Forms::Button^ button11;
 	private: System::Windows::Forms::Button^ button12;
 	private: System::Windows::Forms::Button^ button13;
-	private: System::Windows::Forms::Button^ button14;
+	private: System::Windows::Forms::Button^ plusminusButton;
+
 
 		   System::ComponentModel::Container^ components;
 
@@ -100,7 +101,7 @@ namespace Calculator1 {
 			this->button11 = (gcnew System::Windows::Forms::Button());
 			this->button12 = (gcnew System::Windows::Forms::Button());
 			this->button13 = (gcnew System::Windows::Forms::Button());
-			this->button14 = (gcnew System::Windows::Forms::Button());
+			this->plusminusButton = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// button1
@@ -359,7 +360,7 @@ namespace Calculator1 {
 			// 
 			this->square2Button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->square2Button->Location = System::Drawing::Point(12, 93);
+			this->square2Button->Location = System::Drawing::Point(12, 193);
 			this->square2Button->Name = L"square2Button";
 			this->square2Button->Size = System::Drawing::Size(80, 80);
 			this->square2Button->TabIndex = 26;
@@ -397,15 +398,17 @@ namespace Calculator1 {
 			this->button13->TabIndex = 23;
 			this->button13->UseVisualStyleBackColor = true;
 			// 
-			// button14
+			// plusminusButton
 			// 
-			this->button14->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->plusminusButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->button14->Location = System::Drawing::Point(12, 193);
-			this->button14->Name = L"button14";
-			this->button14->Size = System::Drawing::Size(80, 80);
-			this->button14->TabIndex = 22;
-			this->button14->UseVisualStyleBackColor = true;
+			this->plusminusButton->Location = System::Drawing::Point(12, 93);
+			this->plusminusButton->Name = L"plusminusButton";
+			this->plusminusButton->Size = System::Drawing::Size(80, 80);
+			this->plusminusButton->TabIndex = 22;
+			this->plusminusButton->Text = L"+/-";
+			this->plusminusButton->UseVisualStyleBackColor = true;
+			this->plusminusButton->Click += gcnew System::EventHandler(this, &MyForm::plusminusButton_Click);
 			// 
 			// MyForm
 			// 
@@ -416,7 +419,7 @@ namespace Calculator1 {
 			this->Controls->Add(this->button11);
 			this->Controls->Add(this->button12);
 			this->Controls->Add(this->button13);
-			this->Controls->Add(this->button14);
+			this->Controls->Add(this->plusminusButton);
 			this->Controls->Add(this->clearButton);
 			this->Controls->Add(this->squareButton);
 			this->Controls->Add(this->powButton);
@@ -506,6 +509,18 @@ namespace Calculator1 {
 		textBox1->Text = System::Convert::ToString(result);
 	 }
 
+	private: System::Void plusminusButton_Click(System::Object^ sender, System::EventArgs^ e) {
+			
+		if (textBox1->Text->Contains("-")) {
+			textBox1->Text = textBox1->Text->Remove(0,1);
+		}
+		else
+		{
+			textBox1->Text = "-" + textBox1->Text;
+		}
+
+	}
+
 	private: System::Void equalButton_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		secondNumber = Double::Parse(textBox1->Text);
@@ -542,5 +557,6 @@ namespace Calculator1 {
 		}
 	}
 	
+
 };
 }
