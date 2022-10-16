@@ -564,6 +564,9 @@ namespace Calculator1 {
 	}
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
+
+	//Inputting numbers
+
 	private: System::Void InputNumber(System::Object^ sender, System::EventArgs^ e) {
 
 		Button^ Numbers = safe_cast<Button^>(sender);
@@ -580,6 +583,8 @@ namespace Calculator1 {
 		}
 	}
 
+
+	//Inputting the operators
 	private: System::Void InputOperators(System::Object^ sender, System::EventArgs^ e) {
 
 		Button^ OperatorCal = safe_cast<Button^>(sender);
@@ -589,6 +594,8 @@ namespace Calculator1 {
 		operators = OperatorCal->Text;
 	}
 
+
+	//Inputting the "." so using not natural numbers is possible
 	private: System::Void dotButton_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		if (!textBox1->Text->Contains(","))
@@ -597,6 +604,7 @@ namespace Calculator1 {
 		}
 	}
 
+	//The square root button's function
 	private: System::Void squareButton_Click(System::Object^ sender, System::EventArgs^ e)
 	{
 		firstNumber = Double::Parse(textBox1->Text);
@@ -604,11 +612,14 @@ namespace Calculator1 {
 		textBox1->Text = System::Convert::ToString(result);
 	}
 
+
+	//Clear all button
 	private: System::Void clearButton_Click(System::Object^ sender, System::EventArgs^ e)
 	{
 		textBox1->Text = "0";
 	}
 
+	//Putting the number on the second exponent
 	private: System::Void square2Button_Click(System::Object^ sender, System::EventArgs^ e) {
 		firstNumber = Double::Parse(textBox1->Text);
 		result = pow(firstNumber, 2);
