@@ -58,6 +58,7 @@ namespace Calculator1 {
 		System::Windows::Forms::Button^ powButton;
 		System::Windows::Forms::Button^ squareButton;
 		System::Windows::Forms::Button^ clearButton;
+		
 	private: System::Windows::Forms::Button^ square2Button;
 
 
@@ -80,7 +81,8 @@ namespace Calculator1 {
 	private: System::Windows::Forms::Button^ LogButton;
 	private: System::Windows::Forms::Button^ expButton;
 
-
+	private: System::Windows::Forms::Button^ greaterButton;
+	private: System::Windows::Forms::Button^ smallerButton;
 
 		   System::ComponentModel::Container^ components;
 
@@ -123,6 +125,8 @@ namespace Calculator1 {
 			this->LnButton = (gcnew System::Windows::Forms::Button());
 			this->LogButton = (gcnew System::Windows::Forms::Button());
 			this->expButton = (gcnew System::Windows::Forms::Button());
+			this->greaterButton = (gcnew System::Windows::Forms::Button());
+			this->smallerButton = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// button1
@@ -509,11 +513,37 @@ namespace Calculator1 {
 			this->expButton->UseVisualStyleBackColor = true;
 			this->expButton->Click += gcnew System::EventHandler(this, &MyForm::expButton_Click);
 			// 
+			// greaterButton
+			// 
+			this->greaterButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->greaterButton->Location = System::Drawing::Point(184, 389);
+			this->greaterButton->Name = L"greaterButton";
+			this->greaterButton->Size = System::Drawing::Size(80, 80);
+			this->greaterButton->TabIndex = 34;
+			this->greaterButton->Text = L">";
+			this->greaterButton->UseVisualStyleBackColor = true;
+			this->greaterButton->Click += gcnew System::EventHandler(this, &MyForm::InputOperators);
+			// 
+			// smallerButton
+			// 
+			this->smallerButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->smallerButton->Location = System::Drawing::Point(184, 488);
+			this->smallerButton->Name = L"smallerButton";
+			this->smallerButton->Size = System::Drawing::Size(80, 80);
+			this->smallerButton->TabIndex = 35;
+			this->smallerButton->Text = L"<";
+			this->smallerButton->UseVisualStyleBackColor = true;
+			this->smallerButton->Click += gcnew System::EventHandler(this, &MyForm::InputOperators);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(650, 586);
+			this->Controls->Add(this->greaterButton);
+			this->Controls->Add(this->smallerButton);
 			this->Controls->Add(this->expButton);
 			this->Controls->Add(this->LnButton);
 			this->Controls->Add(this->LogButton);
@@ -556,6 +586,7 @@ namespace Calculator1 {
 #pragma endregion
 
 		double firstNumber, secondNumber, result;
+		String^ textResult;
 		String^ operators;
 		double pi = 2 * acos(0.0);
 
@@ -710,6 +741,8 @@ namespace Calculator1 {
 
 	}
 
+
+
 	private: System::Void equalButton_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		secondNumber = Double::Parse(textBox1->Text);
@@ -743,6 +776,30 @@ namespace Calculator1 {
 		{
 			result = pow(firstNumber, secondNumber);
 			textBox1->Text = System::Convert::ToString(result);
+		}
+		else if (operators == ">")
+		{
+			if (firstNumber > secondNumber)
+			{
+				textResult = "true";
+			}
+			else
+			{
+				textResult = "false";
+			}
+			textBox1->Text = textResult;
+		}
+		else if (operators == "<")
+		{
+			if (firstNumber < secondNumber)
+			{
+				textResult = "true";
+			}
+			else
+			{
+				textResult = "false";
+			}
+			textBox1->Text = textResult;
 		}
 	}
 	
