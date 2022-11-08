@@ -595,15 +595,22 @@ namespace Calculator1 {
 
 
 		void firstnumSetter() {
-			if (textBox1->Text == "") {
-				firstNumber = 0;
+			try {
+
+
+				if (textBox1->Text == "") {
+					firstNumber = 0;
+				}
+				else {
+					firstNumber = Double::Parse(textBox1->Text);
+				}
 			}
-			else {
-				firstNumber = Double::Parse(textBox1->Text);
+			catch (Exception^ ex) {
+				MessageBox::Show(ex->Message,"Error!",MessageBoxButtons::OK,MessageBoxIcon::Error);
 			}
 
 	}
-
+		
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
@@ -761,61 +768,67 @@ namespace Calculator1 {
 
 	private: System::Void equalButton_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		secondNumber = Double::Parse(textBox1->Text->Substring(1));
+		try {
+			secondNumber = Double::Parse(textBox1->Text->Substring(1));
 
-		if (operators == "+")
-		{
-			result = firstNumber + secondNumber;
-			textBox1->Text = System::Convert::ToString(result);
-		}
-		else if (operators == "-")
-		{
-			result = firstNumber - secondNumber;
-			textBox1->Text = System::Convert::ToString(result);
-		}
-		else if (operators == "*")
-		{
-			result = firstNumber * secondNumber;
-			textBox1->Text = System::Convert::ToString(result);
-		}
-		else if (operators == "/")
-		{
-			result = firstNumber / secondNumber;
-			textBox1->Text = System::Convert::ToString(result);
-		}
-		else if (operators == "%")
-		{
-			result = (int)firstNumber % (int)secondNumber;
-			textBox1->Text = System::Convert::ToString(result);
-		}
-		else if (operators == "^")
-		{
-			result = pow(firstNumber, secondNumber);
-			textBox1->Text = System::Convert::ToString(result);
-		}
-		else if (operators == ">")
-		{
-			if (firstNumber > secondNumber)
+			if (operators == "+")
 			{
-				textResult = "true";
+				result = firstNumber + secondNumber;
+				textBox1->Text = System::Convert::ToString(result);
 			}
-			else
+			else if (operators == "-")
 			{
-				textResult = "false";
+				result = firstNumber - secondNumber;
+				textBox1->Text = System::Convert::ToString(result);
 			}
-			textBox1->Text = textResult;
+			else if (operators == "*")
+			{
+				result = firstNumber * secondNumber;
+				textBox1->Text = System::Convert::ToString(result);
+			}
+			else if (operators == "/")
+			{
+				result = firstNumber / secondNumber;
+				textBox1->Text = System::Convert::ToString(result);
+			}
+			else if (operators == "%")
+			{
+				result = (int)firstNumber % (int)secondNumber;
+				textBox1->Text = System::Convert::ToString(result);
+			}
+			else if (operators == "^")
+			{
+				result = pow(firstNumber, secondNumber);
+				textBox1->Text = System::Convert::ToString(result);
+			}
+			else if (operators == ">")
+			{
+				if (firstNumber > secondNumber)
+				{
+					textResult = "true";
+				}
+				else
+				{
+					textResult = "false";
+				}
+				textBox1->Text = textResult;
+			}
+			else if (operators == "<")
+			{
+				if (firstNumber < secondNumber)
+				{
+					textResult = "true";
+				}
+				else
+				{
+					textResult = "false";
+				}
+				textBox1->Text = textResult;
+			}
 		}
-		else if (operators == "<")
+		catch(Exception^ex)
 		{
-			if (firstNumber < secondNumber)
-			{
-				textResult = "true";
-			}
-			else
-			{
-				textResult = "false";
-			}
-			textBox1->Text = textResult;
+			MessageBox::Show(ex->Message,"Error!",MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 	
