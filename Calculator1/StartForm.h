@@ -1,6 +1,8 @@
 #pragma once
+
 #include "Myform.h"
 #include "BitwiseForm.h"
+#include <Windows.h>
 
 namespace Calculator1 {
 
@@ -117,15 +119,23 @@ namespace Calculator1 {
 	}
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		
-		MyForm^ myForm = gcnew MyForm();
+		MyForm^ myForm = gcnew MyForm(this);
 		myForm->Show();
 		this->Hide();
+
 		
 	}
+
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		BitwiseForm^ bitForm = gcnew BitwiseForm();
+		/*BitwiseForm^ bitForm = gcnew BitwiseForm(this);
 		bitForm->Show();
-		this->Hide();
+		this->Hide();*/
+		//Form^ myForm = gcnew Form();
+		//myForm = obj3;
+		//myForm->Show();
+
+		
+		
 	}
 };
 }
