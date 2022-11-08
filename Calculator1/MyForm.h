@@ -863,6 +863,11 @@ private: System::Void textBox1_KeyDown(System::Object^ sender, System::Windows::
 		textBox1->Text = "";
 		operators = "/";
 	}
+	if (e->KeyCode == Keys::M) {
+		firstnumSetter();
+		textBox1->Text = "";
+		operators = "%";
+	}
 }
 private: System::Void MyForm_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 }
