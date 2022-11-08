@@ -607,6 +607,7 @@ namespace Calculator1 {
 			}
 			catch (Exception^ ex) {
 				MessageBox::Show(ex->Message,"Error!",MessageBoxButtons::OK,MessageBoxIcon::Error);
+				//MyForm::Refresh();
 			}
 
 	}
