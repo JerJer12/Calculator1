@@ -9,6 +9,7 @@ namespace Calculator1 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace std;
 
 	/// <summary>
 	/// Summary for MyForm
@@ -593,7 +594,15 @@ namespace Calculator1 {
 
 
 
-	
+		void firstnumSetter() {
+			if (textBox1->Text == "") {
+				firstNumber = 0;
+			}
+			else {
+				firstNumber = Double::Parse(textBox1->Text);
+			}
+
+	}
 
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
@@ -625,7 +634,8 @@ namespace Calculator1 {
 
 		Button^ OperatorCal = safe_cast<Button^>(sender);
 
-		firstNumber = Double::Parse(textBox1->Text);
+		
+		firstnumSetter();
 		textBox1->Text = "";
 		operators = OperatorCal->Text;
 		textBox1->Text = operators;
@@ -751,7 +761,6 @@ namespace Calculator1 {
 
 	private: System::Void equalButton_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		
 		secondNumber = Double::Parse(textBox1->Text->Substring(1));
 
 		if (operators == "+")
@@ -817,26 +826,26 @@ private: System::Void textBox1_KeyDown(System::Object^ sender, System::Windows::
 	}
 
 	if (e->KeyValue == (int)Keys::Add) {
-		firstNumber = Double::Parse(textBox1->Text);
+		firstnumSetter();
 		textBox1->Text = "";
 		operators = "+";
 		//textBox1->Text = "";
 	}
 
 	if (e->KeyValue == (int)Keys::Subtract) {
-		firstNumber = Double::Parse(textBox1->Text);
+		firstnumSetter();
 		textBox1->Text = "";
 		operators = "-";
 	}
 
 	if (e->KeyValue == (double)Keys::Multiply) {
-		firstNumber = Double::Parse(textBox1->Text);
+		firstnumSetter();
 		textBox1->Text = "";
 		operators = "*";
 	}
 
 	if (e->KeyValue == (int)Keys::Divide) {
-		firstNumber = Double::Parse(textBox1->Text);
+		firstnumSetter();
 		textBox1->Text = "";
 		operators = "/";
 	}
