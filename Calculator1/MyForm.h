@@ -150,8 +150,8 @@ namespace Calculator1 {
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(596, 50);
 			this->textBox1->TabIndex = 1;
-			this->textBox1->Text = L"0";
 			this->textBox1->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->textBox1->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::textBox1_KeyDown);
 			// 
 			// button2
 			// 
@@ -579,6 +579,7 @@ namespace Calculator1 {
 			this->Name = L"MyForm";
 			this->Text = L"Calculator";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
+			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::MyForm_KeyDown);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -591,9 +592,13 @@ namespace Calculator1 {
 		double pi = 2 * acos(0.0);
 
 
+
+	
+
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
+		textBox1->Select();
 	}
 
 	//Inputting numbers
@@ -602,7 +607,7 @@ namespace Calculator1 {
 
 		Button^ Numbers = safe_cast<Button^>(sender);
 
-		if (textBox1->Text == "0")
+		if (textBox1->Text == "")
 		{
 			textBox1->Text = Numbers->Text;
 
@@ -623,6 +628,7 @@ namespace Calculator1 {
 		firstNumber = Double::Parse(textBox1->Text);
 		textBox1->Text = "";
 		operators = OperatorCal->Text;
+		textBox1->Text = operators;
 	}
 
 
@@ -647,7 +653,7 @@ namespace Calculator1 {
 	//Clear all button
 	private: System::Void clearButton_Click(System::Object^ sender, System::EventArgs^ e)
 	{
-		textBox1->Text = "0";
+		textBox1->Text = "";
 	}
 
 	//Putting the number on the second exponent
@@ -740,12 +746,13 @@ namespace Calculator1 {
 		textBox1->Text = System::Convert::ToString(result);
 
 	}
-
+	
 
 
 	private: System::Void equalButton_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		secondNumber = Double::Parse(textBox1->Text);
+		
+		secondNumber = Double::Parse(textBox1->Text->Substring(1));
 
 		if (operators == "+")
 		{
@@ -803,6 +810,39 @@ namespace Calculator1 {
 		}
 	}
 	
+
+private: System::Void textBox1_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+	if (e->KeyValue == (int)Keys::Enter) {
+		equalButton_Click(this,e);
+	}
+
+	if (e->KeyValue == (int)Keys::Add) {
+		firstNumber = Double::Parse(textBox1->Text);
+		textBox1->Text = "";
+		operators = "+";
+		//textBox1->Text = "";
+	}
+
+	if (e->KeyValue == (int)Keys::Subtract) {
+		firstNumber = Double::Parse(textBox1->Text);
+		textBox1->Text = "";
+		operators = "-";
+	}
+
+	if (e->KeyValue == (double)Keys::Multiply) {
+		firstNumber = Double::Parse(textBox1->Text);
+		textBox1->Text = "";
+		operators = "*";
+	}
+
+	if (e->KeyValue == (int)Keys::Divide) {
+		firstNumber = Double::Parse(textBox1->Text);
+		textBox1->Text = "";
+		operators = "/";
+	}
+}
+private: System::Void MyForm_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+}
 
 };
 }
