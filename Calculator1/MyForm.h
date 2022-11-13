@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <math.h>
-#include "Startform.h"
+#include "Bitform.h"
 
 namespace Calculator1 {
 
@@ -18,7 +18,6 @@ namespace Calculator1 {
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 	public:
-		Form ^obj;
 		MyForm(void)
 		{
 			InitializeComponent();
@@ -26,14 +25,7 @@ namespace Calculator1 {
 			//TODO: Add the constructor code here
 			//
 		}
-		MyForm(Form ^obj1)
-		{
-			obj = obj1;
-			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
-		}
+		
 
 	protected:
 		/// <summary>
@@ -557,9 +549,9 @@ namespace Calculator1 {
 				static_cast<System::Byte>(238)));
 			this->BackButton->Location = System::Drawing::Point(12, 32);
 			this->BackButton->Name = L"BackButton";
-			this->BackButton->Size = System::Drawing::Size(100, 50);
+			this->BackButton->Size = System::Drawing::Size(108, 50);
 			this->BackButton->TabIndex = 36;
-			this->BackButton->Text = L"Back";
+			this->BackButton->Text = L"Bitwise Calculator";
 			this->BackButton->UseVisualStyleBackColor = true;
 			this->BackButton->Click += gcnew System::EventHandler(this, &MyForm::BackButton_Click);
 			// 
@@ -899,11 +891,10 @@ private: System::Void MyForm_KeyDown(System::Object^ sender, System::Windows::Fo
 }
 
 private: System::Void BackButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	/*StartForm^ startForm = gcnew StartForm();
-	startForm->Show();
-	this->Hide();*/
+	BitForm^ bitForm = gcnew BitForm(this);
+	bitForm->Show();
 	this->Hide();
-	obj->Show();
+	
 }
 };
 }

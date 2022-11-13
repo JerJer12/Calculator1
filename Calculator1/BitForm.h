@@ -1,5 +1,5 @@
 #pragma once
-#include "StartForm.h"
+#include "MyForm.h"
 
 namespace Calculator1 {
 
@@ -13,18 +13,18 @@ namespace Calculator1 {
 	/// <summary>
 	/// Summary for BitwiseForm
 	/// </summary>
-	public ref class BitwiseForm : public System::Windows::Forms::Form
+	public ref class BitForm : public System::Windows::Forms::Form
 	{
 	public:
 		Form ^obj;
-		BitwiseForm(void)
+		BitForm(void)
 		{
 			InitializeComponent();
 			//
 			//TODO: Add the constructor code here
 			//
 		}
-		BitwiseForm(Form ^obj1)
+		BitForm(Form ^obj1)
 		{
 			obj = obj1;
 			InitializeComponent();
@@ -37,7 +37,7 @@ namespace Calculator1 {
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		~BitwiseForm()
+		~BitForm()
 		{
 			if (components)
 			{
@@ -266,11 +266,11 @@ namespace Calculator1 {
 				static_cast<System::Byte>(238)));
 			this->BackButton->Location = System::Drawing::Point(23, 13);
 			this->BackButton->Name = L"BackButton";
-			this->BackButton->Size = System::Drawing::Size(96, 35);
+			this->BackButton->Size = System::Drawing::Size(150, 74);
 			this->BackButton->TabIndex = 17;
-			this->BackButton->Text = L"Back";
+			this->BackButton->Text = L"Calculator";
 			this->BackButton->UseVisualStyleBackColor = true;
-			this->BackButton->Click += gcnew System::EventHandler(this, &BitwiseForm::BackButton_Click);
+			this->BackButton->Click += gcnew System::EventHandler(this, &BitForm::BackButton_Click);
 			// 
 			// BitwiseForm
 			// 
@@ -296,13 +296,13 @@ namespace Calculator1 {
 			this->Controls->Add(this->textBox1);
 			this->Name = L"BitwiseForm";
 			this->Text = L"BitwiseForm";
-			this->Load += gcnew System::EventHandler(this, &BitwiseForm::BitwiseForm_Load);
+			this->Load += gcnew System::EventHandler(this, &BitForm::BitForm_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-	private: System::Void BitwiseForm_Load(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void BitForm_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void BackButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Hide();

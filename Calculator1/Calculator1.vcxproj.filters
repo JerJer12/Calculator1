@@ -26,10 +26,7 @@
     <ClInclude Include="MyForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StartForm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BitwiseForm.h">
+    <ClInclude Include="BitForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

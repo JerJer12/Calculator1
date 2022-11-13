@@ -125,25 +125,19 @@
     <ClCompile Include="StartForm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BitwiseForm.h">
+    <ClInclude Include="BitForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="StartForm.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BitwiseForm.resx">
-      <DependentUpon>BitwiseForm.h</DependentUpon>
+    <EmbeddedResource Include="BitForm.resx">
+      <DependentUpon>BitForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="StartForm.resx">
-      <DependentUpon>StartForm.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
