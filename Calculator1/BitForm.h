@@ -65,6 +65,7 @@ namespace Calculator1 {
 
 	private: System::Windows::Forms::Button^ NotButton;
 	private: System::Windows::Forms::Button^ BackButton;
+	private: System::Windows::Forms::CheckedListBox^ checkedListBox1;
 
 
 	private:
@@ -97,10 +98,13 @@ namespace Calculator1 {
 			this->ShiftRButton = (gcnew System::Windows::Forms::Button());
 			this->NotButton = (gcnew System::Windows::Forms::Button());
 			this->BackButton = (gcnew System::Windows::Forms::Button());
+			this->checkedListBox1 = (gcnew System::Windows::Forms::CheckedListBox());
 			this->SuspendLayout();
 			// 
 			// textBox1
 			// 
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
 			this->textBox1->Location = System::Drawing::Point(414, 32);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
@@ -109,6 +113,8 @@ namespace Calculator1 {
 			// 
 			// textBox2
 			// 
+			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
 			this->textBox2->Location = System::Drawing::Point(414, 115);
 			this->textBox2->Multiline = true;
 			this->textBox2->Name = L"textBox2";
@@ -117,25 +123,34 @@ namespace Calculator1 {
 			// 
 			// textBoxBinary
 			// 
+			this->textBoxBinary->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
 			this->textBoxBinary->Location = System::Drawing::Point(414, 424);
 			this->textBoxBinary->Multiline = true;
 			this->textBoxBinary->Name = L"textBoxBinary";
+			this->textBoxBinary->ReadOnly = true;
 			this->textBoxBinary->Size = System::Drawing::Size(450, 43);
 			this->textBoxBinary->TabIndex = 2;
 			// 
 			// textBoxDecimal
 			// 
+			this->textBoxDecimal->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
 			this->textBoxDecimal->Location = System::Drawing::Point(414, 489);
 			this->textBoxDecimal->Multiline = true;
 			this->textBoxDecimal->Name = L"textBoxDecimal";
+			this->textBoxDecimal->ReadOnly = true;
 			this->textBoxDecimal->Size = System::Drawing::Size(450, 43);
 			this->textBoxDecimal->TabIndex = 3;
 			// 
 			// textBoxHexa
 			// 
+			this->textBoxHexa->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
 			this->textBoxHexa->Location = System::Drawing::Point(414, 552);
 			this->textBoxHexa->Multiline = true;
 			this->textBoxHexa->Name = L"textBoxHexa";
+			this->textBoxHexa->ReadOnly = true;
 			this->textBoxHexa->Size = System::Drawing::Size(450, 43);
 			this->textBoxHexa->TabIndex = 4;
 			// 
@@ -272,11 +287,24 @@ namespace Calculator1 {
 			this->BackButton->UseVisualStyleBackColor = true;
 			this->BackButton->Click += gcnew System::EventHandler(this, &BitForm::BackButton_Click);
 			// 
-			// BitwiseForm
+			// checkedListBox1
+			// 
+			this->checkedListBox1->CheckOnClick = true;
+			this->checkedListBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->checkedListBox1->FormattingEnabled = true;
+			this->checkedListBox1->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Binary", L"Decimal", L"Hexadecimal" });
+			this->checkedListBox1->Location = System::Drawing::Point(102, 206);
+			this->checkedListBox1->Name = L"checkedListBox1";
+			this->checkedListBox1->Size = System::Drawing::Size(126, 94);
+			this->checkedListBox1->TabIndex = 18;
+			// 
+			// BitForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(918, 648);
+			this->Controls->Add(this->checkedListBox1);
 			this->Controls->Add(this->BackButton);
 			this->Controls->Add(this->ShiftLButton);
 			this->Controls->Add(this->ShiftRButton);
@@ -294,7 +322,7 @@ namespace Calculator1 {
 			this->Controls->Add(this->textBoxBinary);
 			this->Controls->Add(this->textBox2);
 			this->Controls->Add(this->textBox1);
-			this->Name = L"BitwiseForm";
+			this->Name = L"BitForm";
 			this->Text = L"BitwiseForm";
 			this->Load += gcnew System::EventHandler(this, &BitForm::BitForm_Load);
 			this->ResumeLayout(false);
