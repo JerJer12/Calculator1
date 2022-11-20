@@ -568,7 +568,7 @@ namespace Calculator1 {
 			this->lBitShiftButton->Name = L"lBitShiftButton";
 			this->lBitShiftButton->Size = System::Drawing::Size(80, 80);
 			this->lBitShiftButton->TabIndex = 37;
-			this->lBitShiftButton->Text = L"l";
+			this->lBitShiftButton->Text = L"L";
 			this->lBitShiftButton->UseVisualStyleBackColor = true;
 			this->lBitShiftButton->Click += gcnew System::EventHandler(this, &MyForm::InputOperators);
 			// 
@@ -580,7 +580,7 @@ namespace Calculator1 {
 			this->rBitShiftButton->Name = L"rBitShiftButton";
 			this->rBitShiftButton->Size = System::Drawing::Size(80, 80);
 			this->rBitShiftButton->TabIndex = 38;
-			this->rBitShiftButton->Text = L"r";
+			this->rBitShiftButton->Text = L"R";
 			this->rBitShiftButton->UseVisualStyleBackColor = true;
 			this->rBitShiftButton->Click += gcnew System::EventHandler(this, &MyForm::InputOperators);
 			// 
@@ -852,12 +852,12 @@ namespace Calculator1 {
 				result = pow(firstNumber, secondNumber);
 				textBox1->Text = System::Convert::ToString(result);
 			}
-			else if (operators == "l")
+			else if (operators == "L")
 			{
 				result = ((int)firstNumber << (int)secondNumber);
 				textBox1->Text = System::Convert::ToString(result);
 			}
-			else if (operators == "r")
+			else if (operators == "R")
 			{
 				result = ((int)firstNumber >> (int)secondNumber);
 				textBox1->Text = System::Convert::ToString(result);
