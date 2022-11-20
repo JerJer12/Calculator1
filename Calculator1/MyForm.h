@@ -88,6 +88,9 @@ namespace Calculator1 {
 	private: System::Windows::Forms::Button^ smallerButton;
 	private: System::Windows::Forms::Button^ BackButton;
 
+	private: System::Windows::Forms::Button^ lBitShiftButton;
+	private: System::Windows::Forms::Button^ rBitShiftButton;
+
 
 		   System::ComponentModel::Container^ components;
 
@@ -133,6 +136,8 @@ namespace Calculator1 {
 			this->greaterButton = (gcnew System::Windows::Forms::Button());
 			this->smallerButton = (gcnew System::Windows::Forms::Button());
 			this->BackButton = (gcnew System::Windows::Forms::Button());
+			this->lBitShiftButton = (gcnew System::Windows::Forms::Button());
+			this->rBitShiftButton = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// button1
@@ -555,11 +560,37 @@ namespace Calculator1 {
 			this->BackButton->UseVisualStyleBackColor = true;
 			this->BackButton->Click += gcnew System::EventHandler(this, &MyForm::BackButton_Click);
 			// 
+			// lBitShiftButton
+			// 
+			this->lBitShiftButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->lBitShiftButton->Location = System::Drawing::Point(136, 497);
+			this->lBitShiftButton->Name = L"lBitShiftButton";
+			this->lBitShiftButton->Size = System::Drawing::Size(80, 80);
+			this->lBitShiftButton->TabIndex = 37;
+			this->lBitShiftButton->Text = L"l";
+			this->lBitShiftButton->UseVisualStyleBackColor = true;
+			this->lBitShiftButton->Click += gcnew System::EventHandler(this, &MyForm::InputOperators);
+			// 
+			// rBitShiftButton
+			// 
+			this->rBitShiftButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->rBitShiftButton->Location = System::Drawing::Point(222, 497);
+			this->rBitShiftButton->Name = L"rBitShiftButton";
+			this->rBitShiftButton->Size = System::Drawing::Size(80, 80);
+			this->rBitShiftButton->TabIndex = 38;
+			this->rBitShiftButton->Text = L"r";
+			this->rBitShiftButton->UseVisualStyleBackColor = true;
+			this->rBitShiftButton->Click += gcnew System::EventHandler(this, &MyForm::InputOperators);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(749, 597);
+			this->Controls->Add(this->rBitShiftButton);
+			this->Controls->Add(this->lBitShiftButton);
 			this->Controls->Add(this->BackButton);
 			this->Controls->Add(this->greaterButton);
 			this->Controls->Add(this->smallerButton);
@@ -788,6 +819,7 @@ namespace Calculator1 {
 	private: System::Void equalButton_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		try {
+			
 			secondNumber = Double::Parse(textBox1->Text->Substring(1));
 
 			if (operators == "+")
@@ -818,6 +850,16 @@ namespace Calculator1 {
 			else if (operators == "^")
 			{
 				result = pow(firstNumber, secondNumber);
+				textBox1->Text = System::Convert::ToString(result);
+			}
+			else if (operators == "l")
+			{
+				result = ((int)firstNumber << (int)secondNumber);
+				textBox1->Text = System::Convert::ToString(result);
+			}
+			else if (operators == "r")
+			{
+				result = ((int)firstNumber >> (int)secondNumber);
 				textBox1->Text = System::Convert::ToString(result);
 			}
 			else if (operators == ">")
