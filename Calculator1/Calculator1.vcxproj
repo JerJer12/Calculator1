@@ -128,6 +128,7 @@
     <ClInclude Include="BitForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Helpers.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>

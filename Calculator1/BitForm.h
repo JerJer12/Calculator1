@@ -1,5 +1,12 @@
 #pragma once
 #include "MyForm.h"
+//#include "Helpers.h"
+#include <string>
+#include <bitset>
+#include <msclr\marshal_cppstd.h>
+#include <msclr\marshal.h>
+
+
 
 namespace Calculator1 {
 
@@ -9,6 +16,10 @@ namespace Calculator1 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace msclr::interop;
+
+	
+
 
 	/// <summary>
 	/// Summary for BitwiseForm
@@ -339,7 +350,16 @@ namespace Calculator1 {
 		}
 #pragma endregion
 
-		int firstNumber, secondNumber;
+		int firstNumber, secondNumber, result;
+		String^ binout;
+
+		/*string zeroDeleter(string binary) {
+			while (binary.at(0) == '0') {
+				binary.erase(0, 1);
+			}
+			return binary;
+
+		}*/
 
 	private: System::Void BitForm_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
@@ -352,7 +372,15 @@ private: System::Void AndButton_Click(System::Object^ sender, System::EventArgs^
 	if (textBox1->Text != "" && textBox2->Text != "") {
 		firstNumber = Int64::Parse(textBox1->Text);
 		secondNumber = Int64::Parse(textBox2->Text);
-		textBoxDecimal->Text = System::Convert::ToString(firstNumber & secondNumber);
+		result = firstNumber & secondNumber;
+		textBoxDecimal->Text = System::Convert::ToString(result);
+		std::string binary = std::bitset<64>(result).to_string();
+		//zeroDeleter(binary);
+		while (binary.at(0) == '0') {
+			binary.erase(0, 1);
+		}
+		binout = marshal_as<String^>(binary);
+		textBoxBinary->Text = binout;
 	}
 	else {
 		MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
@@ -377,7 +405,8 @@ private: System::Void OrButton_Click(System::Object^ sender, System::EventArgs^ 
 	if (textBox1->Text != "" && textBox2->Text != "") {
 		firstNumber = Int64::Parse(textBox1->Text);
 		secondNumber = Int64::Parse(textBox2->Text);
-		textBoxDecimal->Text = System::Convert::ToString(firstNumber | secondNumber);
+		result = firstNumber | secondNumber;
+		textBoxDecimal->Text = System::Convert::ToString(result);
 	}
 	else {
 		MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
@@ -387,7 +416,8 @@ private: System::Void XorButton_Click(System::Object^ sender, System::EventArgs^
 	if (textBox1->Text != "" && textBox2->Text != "") {
 		firstNumber = Int64::Parse(textBox1->Text);
 		secondNumber = Int64::Parse(textBox2->Text);
-		textBoxDecimal->Text = System::Convert::ToString(firstNumber ^ secondNumber);
+		result = firstNumber ^ secondNumber;
+		textBoxDecimal->Text = System::Convert::ToString(result);
 	}
 	else {
 		MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
@@ -397,7 +427,8 @@ private: System::Void ShiftLButton_Click(System::Object^ sender, System::EventAr
 	if (textBox1->Text != "" && textBox2->Text != "") {
 		firstNumber = Int64::Parse(textBox1->Text);
 		secondNumber = Int64::Parse(textBox2->Text);
-		textBoxDecimal->Text = System::Convert::ToString(firstNumber << secondNumber);
+		result = firstNumber << secondNumber;
+		textBoxDecimal->Text = System::Convert::ToString(result);
 	}
 	else {
 		MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
@@ -407,7 +438,8 @@ private: System::Void ShiftRButton_Click(System::Object^ sender, System::EventAr
 	if (textBox1->Text != "" && textBox2->Text != "") {
 		firstNumber = Int64::Parse(textBox1->Text);
 		secondNumber = Int64::Parse(textBox2->Text);
-		textBoxDecimal->Text = System::Convert::ToString(firstNumber >> secondNumber);
+		result = firstNumber >> secondNumber;
+		textBoxDecimal->Text = System::Convert::ToString(result);
 	}
 	else {
 		MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
@@ -416,7 +448,8 @@ private: System::Void ShiftRButton_Click(System::Object^ sender, System::EventAr
 private: System::Void NotButton_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (textBox1->Text != "" && textBox2->Text == "") {
 		firstNumber = Int64::Parse(textBox1->Text);
-		textBoxDecimal->Text = System::Convert::ToString(~firstNumber);
+		result = ~firstNumber;
+		textBoxDecimal->Text = System::Convert::ToString(result);
 	}
 	else {
 		MessageBox::Show("Enter your number into ONLY the 'Number 1' field ", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
