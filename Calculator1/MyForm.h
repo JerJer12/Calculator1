@@ -163,6 +163,7 @@ namespace Calculator1 {
 			this->textBox1->TabIndex = 1;
 			this->textBox1->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->textBox1->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::textBox1_KeyDown);
+			this->textBox1->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::textBox1_KeyPress);
 			// 
 			// button2
 			// 
@@ -629,6 +630,7 @@ namespace Calculator1 {
 			this->Name = L"MyForm";
 			this->Text = L"Calculator";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
+			this->Shown += gcnew System::EventHandler(this, &MyForm::MyForm_Shown);
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::MyForm_KeyDown);
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -665,6 +667,9 @@ namespace Calculator1 {
 	}
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 		textBox1->Select();
+		textBox1->Focus();
+		textBox1->SelectionStart = textBox1->Text->Length;
+		textBox1->Select(textBox1->Text->Length, 0);
 	}
 
 	//Inputting numbers
@@ -937,6 +942,23 @@ private: System::Void BackButton_Click(System::Object^ sender, System::EventArgs
 	bitForm->Show();
 	this->Hide();
 	
+}
+private: System::Void textBox1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	/*if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57) || e->KeyChar == 46))
+	{
+		e->Handled = true;
+
+	}
+	else
+	if (e->KeyChar == 43) {
+		e->Handled = true;
+		firstnumSetter();
+		textBox1->Text = "";
+		operators = "+";
+	}*/
+}
+private: System::Void MyForm_Shown(System::Object^ sender, System::EventArgs^ e) {
+	//textBox1->Focus();
 }
 };
 }

@@ -110,6 +110,7 @@ namespace Calculator1 {
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(450, 43);
 			this->textBox1->TabIndex = 0;
+			this->textBox1->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &BitForm::textBox1_KeyPress);
 			// 
 			// textBox2
 			// 
@@ -120,6 +121,7 @@ namespace Calculator1 {
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(450, 43);
 			this->textBox2->TabIndex = 1;
+			this->textBox2->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &BitForm::textBox2_KeyPress);
 			// 
 			// textBoxBinary
 			// 
@@ -219,6 +221,7 @@ namespace Calculator1 {
 			this->AndButton->TabIndex = 10;
 			this->AndButton->Text = L"AND";
 			this->AndButton->UseVisualStyleBackColor = true;
+			this->AndButton->Click += gcnew System::EventHandler(this, &BitForm::AndButton_Click);
 			// 
 			// XorButton
 			// 
@@ -230,6 +233,7 @@ namespace Calculator1 {
 			this->XorButton->TabIndex = 12;
 			this->XorButton->Text = L"XOR";
 			this->XorButton->UseVisualStyleBackColor = true;
+			this->XorButton->Click += gcnew System::EventHandler(this, &BitForm::XorButton_Click);
 			// 
 			// OrButton
 			// 
@@ -241,6 +245,7 @@ namespace Calculator1 {
 			this->OrButton->TabIndex = 13;
 			this->OrButton->Text = L"OR";
 			this->OrButton->UseVisualStyleBackColor = true;
+			this->OrButton->Click += gcnew System::EventHandler(this, &BitForm::OrButton_Click);
 			// 
 			// ShiftLButton
 			// 
@@ -252,6 +257,7 @@ namespace Calculator1 {
 			this->ShiftLButton->TabIndex = 16;
 			this->ShiftLButton->Text = L"Shift Left";
 			this->ShiftLButton->UseVisualStyleBackColor = true;
+			this->ShiftLButton->Click += gcnew System::EventHandler(this, &BitForm::ShiftLButton_Click);
 			// 
 			// ShiftRButton
 			// 
@@ -263,6 +269,7 @@ namespace Calculator1 {
 			this->ShiftRButton->TabIndex = 15;
 			this->ShiftRButton->Text = L"Shift Right";
 			this->ShiftRButton->UseVisualStyleBackColor = true;
+			this->ShiftRButton->Click += gcnew System::EventHandler(this, &BitForm::ShiftRButton_Click);
 			// 
 			// NotButton
 			// 
@@ -274,6 +281,7 @@ namespace Calculator1 {
 			this->NotButton->TabIndex = 14;
 			this->NotButton->Text = L"NOT";
 			this->NotButton->UseVisualStyleBackColor = true;
+			this->NotButton->Click += gcnew System::EventHandler(this, &BitForm::NotButton_Click);
 			// 
 			// BackButton
 			// 
@@ -296,7 +304,7 @@ namespace Calculator1 {
 			this->checkedListBox1->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Binary", L"Decimal", L"Hexadecimal" });
 			this->checkedListBox1->Location = System::Drawing::Point(102, 206);
 			this->checkedListBox1->Name = L"checkedListBox1";
-			this->checkedListBox1->Size = System::Drawing::Size(126, 94);
+			this->checkedListBox1->Size = System::Drawing::Size(126, 88);
 			this->checkedListBox1->TabIndex = 18;
 			// 
 			// BitForm
@@ -330,6 +338,9 @@ namespace Calculator1 {
 
 		}
 #pragma endregion
+
+		int firstNumber, secondNumber;
+
 	private: System::Void BitForm_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void BackButton_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -337,5 +348,79 @@ namespace Calculator1 {
 		obj->Show();
 		
 	}
+private: System::Void AndButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (textBox1->Text != "" && textBox2->Text != "") {
+		firstNumber = Int64::Parse(textBox1->Text);
+		secondNumber = Int64::Parse(textBox2->Text);
+		textBoxDecimal->Text = System::Convert::ToString(firstNumber & secondNumber);
+	}
+	else {
+		MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+	}
+	
+}
+private: System::Void textBox1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57) ))
+	{
+		e->Handled = true;
+
+	}
+}
+private: System::Void textBox2_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57)))
+	{
+		e->Handled = true;
+
+	}
+}
+private: System::Void OrButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (textBox1->Text != "" && textBox2->Text != "") {
+		firstNumber = Int64::Parse(textBox1->Text);
+		secondNumber = Int64::Parse(textBox2->Text);
+		textBoxDecimal->Text = System::Convert::ToString(firstNumber | secondNumber);
+	}
+	else {
+		MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+	}
+}
+private: System::Void XorButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (textBox1->Text != "" && textBox2->Text != "") {
+		firstNumber = Int64::Parse(textBox1->Text);
+		secondNumber = Int64::Parse(textBox2->Text);
+		textBoxDecimal->Text = System::Convert::ToString(firstNumber ^ secondNumber);
+	}
+	else {
+		MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+	}
+}
+private: System::Void ShiftLButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (textBox1->Text != "" && textBox2->Text != "") {
+		firstNumber = Int64::Parse(textBox1->Text);
+		secondNumber = Int64::Parse(textBox2->Text);
+		textBoxDecimal->Text = System::Convert::ToString(firstNumber << secondNumber);
+	}
+	else {
+		MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+	}
+}
+private: System::Void ShiftRButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (textBox1->Text != "" && textBox2->Text != "") {
+		firstNumber = Int64::Parse(textBox1->Text);
+		secondNumber = Int64::Parse(textBox2->Text);
+		textBoxDecimal->Text = System::Convert::ToString(firstNumber >> secondNumber);
+	}
+	else {
+		MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+	}
+}
+private: System::Void NotButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (textBox1->Text != "" && textBox2->Text == "") {
+		firstNumber = Int64::Parse(textBox1->Text);
+		textBoxDecimal->Text = System::Convert::ToString(~firstNumber);
+	}
+	else {
+		MessageBox::Show("Enter your number into ONLY the 'Number 1' field ", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+	}
+}
 };
 }
