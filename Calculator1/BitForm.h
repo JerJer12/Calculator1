@@ -427,7 +427,7 @@ namespace Calculator1 {
 			this->Controls->Add(this->textBox2);
 			this->Controls->Add(this->textBox1);
 			this->Name = L"BitForm";
-			this->Text = L"BitwiseForm";
+			this->Text = L"Bitwise Calculator";
 			this->Load += gcnew System::EventHandler(this, &BitForm::BitForm_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
