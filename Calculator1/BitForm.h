@@ -396,6 +396,7 @@ namespace Calculator1 {
 			this->comboBox2->Name = L"comboBox2";
 			this->comboBox2->Size = System::Drawing::Size(190, 39);
 			this->comboBox2->TabIndex = 25;
+			this->comboBox2->SelectedIndexChanged += gcnew System::EventHandler(this, &BitForm::comboBox2_SelectedIndexChanged);
 			// 
 			// BitForm
 			// 
@@ -467,18 +468,10 @@ private: System::Void AndButton_Click(System::Object^ sender, System::EventArgs^
 		if (textBox1->Text != "" && textBox2->Text != "") {
 			
 			//decimal input
-			if (checkBoxDec->Checked) {
+			if (comboBox1->SelectedIndex == 1)/* (checkBoxDec->Checked)*/ {
 				firstNumber = Int64::Parse(textBox1->Text);
-				secondNumber = Int64::Parse(textBox2->Text);
 			}
-			else if (checkBoxBin->Checked) {
-				//string binin1;// = marshal_as<string>(textBox1->Text);
-				//string binin2;// = marshal_as<string>(textBox2->Text);
-				//msclr::interop::marshal_context context;
-				//std::string binin1 = context.marshal_as<std::string>(textBox1->Text);
-				//std::string binin2 = context.marshal_as<std::string>(textBox2->Text);
-				//firstNumber = stoi(binin1, 0, 2);
-				//firstNumber = stoi(binin2, 0, 2);
+			else if (comboBox1->SelectedIndex == 0)/* (checkBoxBin->Checked)*/ {
 				int dec1 = 0;
 
 				int base1 = 1;
@@ -489,9 +482,22 @@ private: System::Void AndButton_Click(System::Object^ sender, System::EventArgs^
 						dec1 += base1;
 					base1 = base1 * 2;
 				}
-				
-				firstNumber=dec1;
 
+				firstNumber = dec1;
+			}
+			else if (comboBox1->SelectedIndex == 2) {
+
+			
+			
+			}
+
+
+			if (comboBox2->SelectedIndex == 1) {
+				secondNumber = Int64::Parse(textBox2->Text);
+			}
+
+			else if (comboBox1->SelectedIndex == 0)/*(checkBoxBin->Checked)*/ {
+				
 				int dec2 = 0;
 
 				
@@ -505,9 +511,8 @@ private: System::Void AndButton_Click(System::Object^ sender, System::EventArgs^
 				}
 				
 				secondNumber = dec2;
-				
 			}
-			else {
+			else if (comboBox2->SelectedIndex == 2) {
 
 			}
 			result = firstNumber & secondNumber;
@@ -547,47 +552,48 @@ private: System::Void AndButton_Click(System::Object^ sender, System::EventArgs^
 	
 }
 private: System::Void textBox1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
-	if (checkBoxDec->Checked) {
+	
+	if (comboBox1->SelectedIndex==1) {
 
 		if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57)))
 		{
 			e->Handled = true;
 		}
 	}
-	else if (checkBoxBin->Checked) {
+	else if(comboBox1->SelectedIndex == 0) {
 		if (!(e->KeyChar == 8 || (e->KeyChar == 48 || e->KeyChar == 49)))
 		{
 			e->Handled = true;
 		}
 	}
-	else {
-		if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57) ||(e->KeyChar >= 97 && e->KeyChar <= 102)))
-		{
-			e->Handled = true;
-
-		}
-	}
-}
-private: System::Void textBox2_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
-	if (checkBoxDec->Checked) {
-
-		if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57)))
-		{
-			e->Handled = true;
-
-		}
-	}
-	else if (checkBoxBin->Checked) {
-		if (!(e->KeyChar == 8 || (e->KeyChar == 48 || e->KeyChar == 49)))
-		{
-			e->Handled = true;
-
-		}
-	}
-	else {
+	else  if (comboBox1->SelectedIndex == 2) {
 		if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57) || (e->KeyChar >= 97 && e->KeyChar <= 102)))
 		{
 			e->Handled = true;
+
+		}
+	}
+	
+}
+private: System::Void textBox2_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if (comboBox1->SelectedIndex == 1) {
+
+		if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57)))
+		{
+			e->Handled = true;
+		}
+	}
+	else if (comboBox1->SelectedIndex == 0) {
+		if (!(e->KeyChar == 8 || (e->KeyChar == 48 || e->KeyChar == 49)))
+		{
+			e->Handled = true;
+		}
+	}
+	else  if (comboBox1->SelectedIndex == 2) {
+		if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57) || (e->KeyChar >= 97 && e->KeyChar <= 102)))
+		{
+			e->Handled = true;
+
 		}
 	}
 }
@@ -803,7 +809,11 @@ private: System::Void checkBoxHexa_CheckedChanged(System::Object^ sender, System
 	textBox2->Text = "";
 }
 private: System::Void comboBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+	textBox1->Text = "";
 	
+}
+private: System::Void comboBox2_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+	textBox2->Text = "";
 }
 };
 }
