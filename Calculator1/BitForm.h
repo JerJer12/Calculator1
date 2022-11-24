@@ -85,6 +85,9 @@ namespace Calculator1 {
 	private: System::Windows::Forms::CheckBox^ checkBoxBin;
 	private: System::Windows::Forms::Label^ InputFormatLabel;
 
+	private: System::Windows::Forms::ComboBox^ comboBox1;
+	private: System::Windows::Forms::ComboBox^ comboBox2;
+
 
 	private:
 		/// <summary>
@@ -120,6 +123,8 @@ namespace Calculator1 {
 			this->checkBoxHexa = (gcnew System::Windows::Forms::CheckBox());
 			this->checkBoxBin = (gcnew System::Windows::Forms::CheckBox());
 			this->InputFormatLabel = (gcnew System::Windows::Forms::Label());
+			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
 			this->SuspendLayout();
 			// 
 			// textBox1
@@ -152,7 +157,7 @@ namespace Calculator1 {
 			this->textBoxBinary->Multiline = true;
 			this->textBoxBinary->Name = L"textBoxBinary";
 			this->textBoxBinary->ReadOnly = true;
-			this->textBoxBinary->Size = System::Drawing::Size(663, 60);
+			this->textBoxBinary->Size = System::Drawing::Size(883, 60);
 			this->textBoxBinary->TabIndex = 2;
 			// 
 			// textBoxDecimal
@@ -163,7 +168,7 @@ namespace Calculator1 {
 			this->textBoxDecimal->Multiline = true;
 			this->textBoxDecimal->Name = L"textBoxDecimal";
 			this->textBoxDecimal->ReadOnly = true;
-			this->textBoxDecimal->Size = System::Drawing::Size(663, 60);
+			this->textBoxDecimal->Size = System::Drawing::Size(883, 60);
 			this->textBoxDecimal->TabIndex = 3;
 			// 
 			// textBoxHexa
@@ -174,7 +179,7 @@ namespace Calculator1 {
 			this->textBoxHexa->Multiline = true;
 			this->textBoxHexa->Name = L"textBoxHexa";
 			this->textBoxHexa->ReadOnly = true;
-			this->textBoxHexa->Size = System::Drawing::Size(663, 60);
+			this->textBoxHexa->Size = System::Drawing::Size(883, 60);
 			this->textBoxHexa->TabIndex = 4;
 			// 
 			// label1
@@ -365,11 +370,40 @@ namespace Calculator1 {
 			this->InputFormatLabel->TabIndex = 22;
 			this->InputFormatLabel->Text = L"Input format:";
 			// 
+			// comboBox1
+			// 
+			this->comboBox1->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->comboBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->comboBox1->FormattingEnabled = true;
+			this->comboBox1->ItemHeight = 31;
+			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Binary", L"Decimal", L"Hexadecimal" });
+			this->comboBox1->Location = System::Drawing::Point(894, 36);
+			this->comboBox1->Name = L"comboBox1";
+			this->comboBox1->Size = System::Drawing::Size(190, 39);
+			this->comboBox1->TabIndex = 24;
+			this->comboBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &BitForm::comboBox1_SelectedIndexChanged);
+			// 
+			// comboBox2
+			// 
+			this->comboBox2->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->comboBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->comboBox2->FormattingEnabled = true;
+			this->comboBox2->ItemHeight = 31;
+			this->comboBox2->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Binary", L"Decimal", L"Hexadecimal" });
+			this->comboBox2->Location = System::Drawing::Point(894, 119);
+			this->comboBox2->Name = L"comboBox2";
+			this->comboBox2->Size = System::Drawing::Size(190, 39);
+			this->comboBox2->TabIndex = 25;
+			// 
 			// BitForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(918, 648);
+			this->ClientSize = System::Drawing::Size(1109, 648);
+			this->Controls->Add(this->comboBox2);
+			this->Controls->Add(this->comboBox1);
 			this->Controls->Add(this->InputFormatLabel);
 			this->Controls->Add(this->checkBoxBin);
 			this->Controls->Add(this->checkBoxHexa);
@@ -415,6 +449,12 @@ namespace Calculator1 {
 		}*/
 
 	private: System::Void BitForm_Load(System::Object^ sender, System::EventArgs^ e) {
+		if (comboBox1->SelectedText=="") {
+			comboBox1->SelectedIndex = 1;
+		}
+		if (comboBox2->SelectedText == "") {
+			comboBox2->SelectedIndex = 1;
+		}
 	}
 	private: System::Void BackButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Hide();
@@ -425,11 +465,57 @@ namespace Calculator1 {
 private: System::Void AndButton_Click(System::Object^ sender, System::EventArgs^ e) {
 	try {
 		if (textBox1->Text != "" && textBox2->Text != "") {
-			firstNumber = Int64::Parse(textBox1->Text);
-			secondNumber = Int64::Parse(textBox2->Text);
+			
+			//decimal input
+			if (checkBoxDec->Checked) {
+				firstNumber = Int64::Parse(textBox1->Text);
+				secondNumber = Int64::Parse(textBox2->Text);
+			}
+			else if (checkBoxBin->Checked) {
+				//string binin1;// = marshal_as<string>(textBox1->Text);
+				//string binin2;// = marshal_as<string>(textBox2->Text);
+				//msclr::interop::marshal_context context;
+				//std::string binin1 = context.marshal_as<std::string>(textBox1->Text);
+				//std::string binin2 = context.marshal_as<std::string>(textBox2->Text);
+				//firstNumber = stoi(binin1, 0, 2);
+				//firstNumber = stoi(binin2, 0, 2);
+				int dec1 = 0;
+
+				int base1 = 1;
+
+				int len1 = textBox1->Text->Length;
+				for (int i = len1 - 1; i >= 0; i--) {
+					if (textBox1->Text[i] == '1')
+						dec1 += base1;
+					base1 = base1 * 2;
+				}
+				
+				firstNumber=dec1;
+
+				int dec2 = 0;
+
+				
+				int base2 = 1;
+
+				int len2 = textBox2->Text->Length;
+				for (int i = len2 - 1; i >= 0; i--) {
+					if (textBox2->Text[i] == '1')
+						dec2 += base2;
+					base2 = base2 * 2;
+				}
+				
+				secondNumber = dec2;
+				
+			}
+			else {
+
+			}
 			result = firstNumber & secondNumber;
+
+			
 			//decimal output
 			textBoxDecimal->Text = System::Convert::ToString(result);
+
 			//binary outpout
 			std::string binary = std::bitset<64>(result).to_string();
 			//zeroDeleter(binary);
@@ -438,6 +524,7 @@ private: System::Void AndButton_Click(System::Object^ sender, System::EventArgs^
 			}
 			binout = marshal_as<String^>(binary);
 			textBoxBinary->Text = binout;
+
 			//hexa outpout
 			std::stringstream ss;
 			ss << std::hex << result;
@@ -465,16 +552,13 @@ private: System::Void textBox1_KeyPress(System::Object^ sender, System::Windows:
 		if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57)))
 		{
 			e->Handled = true;
-
 		}
 	}
 	else if (checkBoxBin->Checked) {
 		if (!(e->KeyChar == 8 || (e->KeyChar == 48 || e->KeyChar == 49)))
 		{
 			e->Handled = true;
-
 		}
-
 	}
 	else {
 		if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57) ||(e->KeyChar >= 97 && e->KeyChar <= 102)))
@@ -482,7 +566,6 @@ private: System::Void textBox1_KeyPress(System::Object^ sender, System::Windows:
 			e->Handled = true;
 
 		}
-
 	}
 }
 private: System::Void textBox2_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
@@ -500,15 +583,12 @@ private: System::Void textBox2_KeyPress(System::Object^ sender, System::Windows:
 			e->Handled = true;
 
 		}
-
 	}
 	else {
 		if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57) || (e->KeyChar >= 97 && e->KeyChar <= 102)))
 		{
 			e->Handled = true;
-
 		}
-
 	}
 }
 private: System::Void OrButton_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -517,8 +597,10 @@ private: System::Void OrButton_Click(System::Object^ sender, System::EventArgs^ 
 			firstNumber = Int64::Parse(textBox1->Text);
 			secondNumber = Int64::Parse(textBox2->Text);
 			result = firstNumber | secondNumber;
+
 			//decimal output
 			textBoxDecimal->Text = System::Convert::ToString(result);
+
 			//binary output
 			std::string binary = std::bitset<64>(result).to_string();
 			//zeroDeleter(binary);
@@ -527,6 +609,7 @@ private: System::Void OrButton_Click(System::Object^ sender, System::EventArgs^ 
 			}
 			binout = marshal_as<String^>(binary);
 			textBoxBinary->Text = binout;
+
 			//hexa outpout
 			std::stringstream ss;
 			ss << std::hex << result;
@@ -550,9 +633,11 @@ private: System::Void XorButton_Click(System::Object^ sender, System::EventArgs^
 		if (textBox1->Text != "" && textBox2->Text != "") {
 			firstNumber = Int64::Parse(textBox1->Text);
 			secondNumber = Int64::Parse(textBox2->Text);
+
 			//decimal output
 			result = firstNumber ^ secondNumber;
 			textBoxDecimal->Text = System::Convert::ToString(result);
+
 			//binary output
 			std::string binary = std::bitset<64>(result).to_string();
 			//zeroDeleter(binary);
@@ -561,6 +646,7 @@ private: System::Void XorButton_Click(System::Object^ sender, System::EventArgs^
 			}
 			binout = marshal_as<String^>(binary);
 			textBoxBinary->Text = binout;
+
 			//hexa outpout
 			std::stringstream ss;
 			ss << std::hex << result;
@@ -584,9 +670,11 @@ private: System::Void ShiftLButton_Click(System::Object^ sender, System::EventAr
 		if (textBox1->Text != "" && textBox2->Text != "") {
 			firstNumber = Int64::Parse(textBox1->Text);
 			secondNumber = Int64::Parse(textBox2->Text);
+
 			//decimal output
 			result = firstNumber << secondNumber;
 			textBoxDecimal->Text = System::Convert::ToString(result);
+
 			//binary output
 			std::string binary = std::bitset<64>(result).to_string();
 			//zeroDeleter(binary);
@@ -595,6 +683,7 @@ private: System::Void ShiftLButton_Click(System::Object^ sender, System::EventAr
 			}
 			binout = marshal_as<String^>(binary);
 			textBoxBinary->Text = binout;
+
 			//hexa outpout
 			std::stringstream ss;
 			ss << std::hex << result;
@@ -619,8 +708,10 @@ private: System::Void ShiftRButton_Click(System::Object^ sender, System::EventAr
 			firstNumber = Int64::Parse(textBox1->Text);
 			secondNumber = Int64::Parse(textBox2->Text);
 			result = firstNumber >> secondNumber;
+
 			//decimal output
 			textBoxDecimal->Text = System::Convert::ToString(result);
+
 			//binary output
 			std::string binary = std::bitset<64>(result).to_string();
 			//zeroDeleter(binary);
@@ -629,6 +720,7 @@ private: System::Void ShiftRButton_Click(System::Object^ sender, System::EventAr
 			}
 			binout = marshal_as<String^>(binary);
 			textBoxBinary->Text = binout;
+
 			//hexa outpout
 			std::stringstream ss;
 			ss << std::hex << result;
@@ -652,8 +744,10 @@ private: System::Void NotButton_Click(System::Object^ sender, System::EventArgs^
 		if (textBox1->Text != "" && textBox2->Text == "") {
 			firstNumber = Int64::Parse(textBox1->Text);
 			result = ~firstNumber;
+
 			//decimal output
 			textBoxDecimal->Text = System::Convert::ToString(result);
+
 			//binary output
 			std::string binary = std::bitset<64>(result).to_string();
 			//zeroDeleter(binary);
@@ -662,6 +756,7 @@ private: System::Void NotButton_Click(System::Object^ sender, System::EventArgs^
 			}
 			binout = marshal_as<String^>(binary);
 			textBoxBinary->Text = binout;
+
 			//hexa outpout
 			std::stringstream ss;
 			ss << std::hex << result;
@@ -706,6 +801,9 @@ private: System::Void checkBoxHexa_CheckedChanged(System::Object^ sender, System
 
 	textBox1->Text = "";
 	textBox2->Text = "";
+}
+private: System::Void comboBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+	
 }
 };
 }
