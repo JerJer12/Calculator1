@@ -5,6 +5,8 @@
 #include <bitset>
 #include <msclr\marshal_cppstd.h>
 #include <msclr\marshal.h>
+#include <iostream>
+#include <sstream>
 
 
 
@@ -17,6 +19,7 @@ namespace Calculator1 {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace msclr::interop;
+	using namespace std;
 
 	
 
@@ -348,12 +351,15 @@ namespace Calculator1 {
 			this->PerformLayout();
 
 		}
+
+		
 #pragma endregion
 
 		int firstNumber, secondNumber, result;
 		String^ binout;
 
-		/*string zeroDeleter(string binary) {
+
+		/* private: std::string zeroDeleter(string binary) {
 			while (binary.at(0) == '0') {
 				binary.erase(0, 1);
 			}
@@ -368,22 +374,41 @@ namespace Calculator1 {
 		obj->Show();
 		
 	}
+
 private: System::Void AndButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (textBox1->Text != "" && textBox2->Text != "") {
-		firstNumber = Int64::Parse(textBox1->Text);
-		secondNumber = Int64::Parse(textBox2->Text);
-		result = firstNumber & secondNumber;
-		textBoxDecimal->Text = System::Convert::ToString(result);
-		std::string binary = std::bitset<64>(result).to_string();
-		//zeroDeleter(binary);
-		while (binary.at(0) == '0') {
-			binary.erase(0, 1);
+	try {
+		if (textBox1->Text != "" && textBox2->Text != "") {
+			firstNumber = Int64::Parse(textBox1->Text);
+			secondNumber = Int64::Parse(textBox2->Text);
+			result = firstNumber & secondNumber;
+			//decimal output
+			textBoxDecimal->Text = System::Convert::ToString(result);
+			//binary outpout
+			std::string binary = std::bitset<64>(result).to_string();
+			//zeroDeleter(binary);
+			while (binary.at(0) == '0') {
+				binary.erase(0, 1);
+			}
+			binout = marshal_as<String^>(binary);
+			textBoxBinary->Text = binout;
+			//hexa outpout
+			std::stringstream ss;
+			ss << std::hex << result;
+			string hexout(ss.str());
+			textBoxHexa->Text = marshal_as<String^>(hexout);
+
+
 		}
-		binout = marshal_as<String^>(binary);
-		textBoxBinary->Text = binout;
+		else {
+			MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+		}
 	}
-	else {
-		MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+	catch (Exception^ ex)
+	{
+		MessageBox::Show(ex->Message, "Error!", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		textBoxDecimal->Text == "0";
+		textBoxBinary->Text == "0";
+		textBoxHexa->Text == "0";
 	}
 	
 }
@@ -402,57 +427,172 @@ private: System::Void textBox2_KeyPress(System::Object^ sender, System::Windows:
 	}
 }
 private: System::Void OrButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (textBox1->Text != "" && textBox2->Text != "") {
-		firstNumber = Int64::Parse(textBox1->Text);
-		secondNumber = Int64::Parse(textBox2->Text);
-		result = firstNumber | secondNumber;
-		textBoxDecimal->Text = System::Convert::ToString(result);
+	try {
+		if (textBox1->Text != "" && textBox2->Text != "") {
+			firstNumber = Int64::Parse(textBox1->Text);
+			secondNumber = Int64::Parse(textBox2->Text);
+			result = firstNumber | secondNumber;
+			//decimal output
+			textBoxDecimal->Text = System::Convert::ToString(result);
+			//binary output
+			std::string binary = std::bitset<64>(result).to_string();
+			//zeroDeleter(binary);
+			while (binary.at(0) == '0') {
+				binary.erase(0, 1);
+			}
+			binout = marshal_as<String^>(binary);
+			textBoxBinary->Text = binout;
+			//hexa outpout
+			std::stringstream ss;
+			ss << std::hex << result;
+			string hexout(ss.str());
+			textBoxHexa->Text = marshal_as<String^>(hexout);
+		}
+		else {
+			MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+		}
 	}
-	else {
-		MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+	catch (Exception^ ex)
+	{
+		MessageBox::Show(ex->Message, "Error!", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		textBoxDecimal->Text == "0";
+		textBoxBinary->Text == "0";
+		textBoxHexa->Text == "0";
 	}
 }
 private: System::Void XorButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (textBox1->Text != "" && textBox2->Text != "") {
-		firstNumber = Int64::Parse(textBox1->Text);
-		secondNumber = Int64::Parse(textBox2->Text);
-		result = firstNumber ^ secondNumber;
-		textBoxDecimal->Text = System::Convert::ToString(result);
+	try {
+		if (textBox1->Text != "" && textBox2->Text != "") {
+			firstNumber = Int64::Parse(textBox1->Text);
+			secondNumber = Int64::Parse(textBox2->Text);
+			//decimal output
+			result = firstNumber ^ secondNumber;
+			textBoxDecimal->Text = System::Convert::ToString(result);
+			//binary output
+			std::string binary = std::bitset<64>(result).to_string();
+			//zeroDeleter(binary);
+			while (binary.at(0) == '0') {
+				binary.erase(0, 1);
+			}
+			binout = marshal_as<String^>(binary);
+			textBoxBinary->Text = binout;
+			//hexa outpout
+			std::stringstream ss;
+			ss << std::hex << result;
+			string hexout(ss.str());
+			textBoxHexa->Text = marshal_as<String^>(hexout);
+		}
+		else {
+			MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+		}
 	}
-	else {
-		MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+	catch (Exception^ ex)
+	{
+		MessageBox::Show(ex->Message, "Error!", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		textBoxDecimal->Text == "0";
+		textBoxBinary->Text == "0";
+		textBoxHexa->Text == "0";
 	}
 }
 private: System::Void ShiftLButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (textBox1->Text != "" && textBox2->Text != "") {
-		firstNumber = Int64::Parse(textBox1->Text);
-		secondNumber = Int64::Parse(textBox2->Text);
-		result = firstNumber << secondNumber;
-		textBoxDecimal->Text = System::Convert::ToString(result);
+	try {
+		if (textBox1->Text != "" && textBox2->Text != "") {
+			firstNumber = Int64::Parse(textBox1->Text);
+			secondNumber = Int64::Parse(textBox2->Text);
+			//decimal output
+			result = firstNumber << secondNumber;
+			textBoxDecimal->Text = System::Convert::ToString(result);
+			//binary output
+			std::string binary = std::bitset<64>(result).to_string();
+			//zeroDeleter(binary);
+			while (binary.at(0) == '0') {
+				binary.erase(0, 1);
+			}
+			binout = marshal_as<String^>(binary);
+			textBoxBinary->Text = binout;
+			//hexa outpout
+			std::stringstream ss;
+			ss << std::hex << result;
+			string hexout(ss.str());
+			textBoxHexa->Text = marshal_as<String^>(hexout);
+		}
+		else {
+			MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+		}
 	}
-	else {
-		MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+	catch (Exception^ ex)
+	{
+		MessageBox::Show(ex->Message, "Error!", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		textBoxDecimal->Text == "0";
+		textBoxBinary->Text == "0";
+		textBoxHexa->Text == "0";
 	}
 }
 private: System::Void ShiftRButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (textBox1->Text != "" && textBox2->Text != "") {
-		firstNumber = Int64::Parse(textBox1->Text);
-		secondNumber = Int64::Parse(textBox2->Text);
-		result = firstNumber >> secondNumber;
-		textBoxDecimal->Text = System::Convert::ToString(result);
+	try {
+		if (textBox1->Text != "" && textBox2->Text != "") {
+			firstNumber = Int64::Parse(textBox1->Text);
+			secondNumber = Int64::Parse(textBox2->Text);
+			result = firstNumber >> secondNumber;
+			//decimal output
+			textBoxDecimal->Text = System::Convert::ToString(result);
+			//binary output
+			std::string binary = std::bitset<64>(result).to_string();
+			//zeroDeleter(binary);
+			while (binary.at(0) == '0') {
+				binary.erase(0, 1);
+			}
+			binout = marshal_as<String^>(binary);
+			textBoxBinary->Text = binout;
+			//hexa outpout
+			std::stringstream ss;
+			ss << std::hex << result;
+			string hexout(ss.str());
+			textBoxHexa->Text = marshal_as<String^>(hexout);
+		}
+		else {
+			MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+		}
 	}
-	else {
-		MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+	catch (Exception^ ex)
+	{
+		MessageBox::Show(ex->Message, "Error!", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		textBoxDecimal->Text == "0";
+		textBoxBinary->Text == "0";
+		textBoxHexa->Text == "0";
 	}
 }
 private: System::Void NotButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (textBox1->Text != "" && textBox2->Text == "") {
-		firstNumber = Int64::Parse(textBox1->Text);
-		result = ~firstNumber;
-		textBoxDecimal->Text = System::Convert::ToString(result);
+	try {
+		if (textBox1->Text != "" && textBox2->Text == "") {
+			firstNumber = Int64::Parse(textBox1->Text);
+			result = ~firstNumber;
+			//decimal output
+			textBoxDecimal->Text = System::Convert::ToString(result);
+			//binary output
+			std::string binary = std::bitset<64>(result).to_string();
+			//zeroDeleter(binary);
+			while (binary.at(0) == '0') {
+				binary.erase(0, 1);
+			}
+			binout = marshal_as<String^>(binary);
+			textBoxBinary->Text = binout;
+			//hexa outpout
+			std::stringstream ss;
+			ss << std::hex << result;
+			string hexout(ss.str());
+			textBoxHexa->Text = marshal_as<String^>(hexout);
+		}
+		else {
+			MessageBox::Show("Enter your number into ONLY the 'Number 1' field ", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+		}
 	}
-	else {
-		MessageBox::Show("Enter your number into ONLY the 'Number 1' field ", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+	catch (Exception^ ex)
+	{
+		MessageBox::Show(ex->Message, "Error!", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		textBoxDecimal->Text == "0";
+		textBoxBinary->Text == "0";
+		textBoxHexa->Text == "0";
 	}
 }
 };
