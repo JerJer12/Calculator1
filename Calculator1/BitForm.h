@@ -79,7 +79,11 @@ namespace Calculator1 {
 
 	private: System::Windows::Forms::Button^ NotButton;
 	private: System::Windows::Forms::Button^ BackButton;
-	private: System::Windows::Forms::CheckedListBox^ checkedListBox1;
+
+	private: System::Windows::Forms::CheckBox^ checkBoxDec;
+	private: System::Windows::Forms::CheckBox^ checkBoxHexa;
+	private: System::Windows::Forms::CheckBox^ checkBoxBin;
+	private: System::Windows::Forms::Label^ InputFormatLabel;
 
 
 	private:
@@ -112,7 +116,10 @@ namespace Calculator1 {
 			this->ShiftRButton = (gcnew System::Windows::Forms::Button());
 			this->NotButton = (gcnew System::Windows::Forms::Button());
 			this->BackButton = (gcnew System::Windows::Forms::Button());
-			this->checkedListBox1 = (gcnew System::Windows::Forms::CheckedListBox());
+			this->checkBoxDec = (gcnew System::Windows::Forms::CheckBox());
+			this->checkBoxHexa = (gcnew System::Windows::Forms::CheckBox());
+			this->checkBoxBin = (gcnew System::Windows::Forms::CheckBox());
+			this->InputFormatLabel = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// textBox1
@@ -141,33 +148,33 @@ namespace Calculator1 {
 			// 
 			this->textBoxBinary->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->textBoxBinary->Location = System::Drawing::Point(414, 424);
+			this->textBoxBinary->Location = System::Drawing::Point(201, 407);
 			this->textBoxBinary->Multiline = true;
 			this->textBoxBinary->Name = L"textBoxBinary";
 			this->textBoxBinary->ReadOnly = true;
-			this->textBoxBinary->Size = System::Drawing::Size(450, 43);
+			this->textBoxBinary->Size = System::Drawing::Size(663, 60);
 			this->textBoxBinary->TabIndex = 2;
 			// 
 			// textBoxDecimal
 			// 
 			this->textBoxDecimal->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->textBoxDecimal->Location = System::Drawing::Point(414, 489);
+			this->textBoxDecimal->Location = System::Drawing::Point(201, 481);
 			this->textBoxDecimal->Multiline = true;
 			this->textBoxDecimal->Name = L"textBoxDecimal";
 			this->textBoxDecimal->ReadOnly = true;
-			this->textBoxDecimal->Size = System::Drawing::Size(450, 43);
+			this->textBoxDecimal->Size = System::Drawing::Size(663, 60);
 			this->textBoxDecimal->TabIndex = 3;
 			// 
 			// textBoxHexa
 			// 
 			this->textBoxHexa->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->textBoxHexa->Location = System::Drawing::Point(414, 552);
+			this->textBoxHexa->Location = System::Drawing::Point(201, 557);
 			this->textBoxHexa->Multiline = true;
 			this->textBoxHexa->Name = L"textBoxHexa";
 			this->textBoxHexa->ReadOnly = true;
-			this->textBoxHexa->Size = System::Drawing::Size(450, 43);
+			this->textBoxHexa->Size = System::Drawing::Size(663, 60);
 			this->textBoxHexa->TabIndex = 4;
 			// 
 			// label1
@@ -197,7 +204,7 @@ namespace Calculator1 {
 			this->label3->AutoSize = true;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->label3->Location = System::Drawing::Point(230, 436);
+			this->label3->Location = System::Drawing::Point(17, 436);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(99, 31);
 			this->label3->TabIndex = 7;
@@ -208,7 +215,7 @@ namespace Calculator1 {
 			this->label4->AutoSize = true;
 			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->label4->Location = System::Drawing::Point(230, 501);
+			this->label4->Location = System::Drawing::Point(17, 510);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(120, 31);
 			this->label4->TabIndex = 8;
@@ -219,7 +226,7 @@ namespace Calculator1 {
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->label5->Location = System::Drawing::Point(230, 564);
+			this->label5->Location = System::Drawing::Point(17, 586);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(178, 31);
 			this->label5->TabIndex = 9;
@@ -309,24 +316,64 @@ namespace Calculator1 {
 			this->BackButton->UseVisualStyleBackColor = true;
 			this->BackButton->Click += gcnew System::EventHandler(this, &BitForm::BackButton_Click);
 			// 
-			// checkedListBox1
+			// checkBoxDec
 			// 
-			this->checkedListBox1->CheckOnClick = true;
-			this->checkedListBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->checkBoxDec->Checked = true;
+			this->checkBoxDec->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->checkBoxDec->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
-			this->checkedListBox1->FormattingEnabled = true;
-			this->checkedListBox1->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Binary", L"Decimal", L"Hexadecimal" });
-			this->checkedListBox1->Location = System::Drawing::Point(102, 206);
-			this->checkedListBox1->Name = L"checkedListBox1";
-			this->checkedListBox1->Size = System::Drawing::Size(126, 88);
-			this->checkedListBox1->TabIndex = 18;
+			this->checkBoxDec->Location = System::Drawing::Point(23, 212);
+			this->checkBoxDec->Name = L"checkBoxDec";
+			this->checkBoxDec->Size = System::Drawing::Size(100, 44);
+			this->checkBoxDec->TabIndex = 19;
+			this->checkBoxDec->Text = L"Decimal";
+			this->checkBoxDec->UseVisualStyleBackColor = true;
+			this->checkBoxDec->CheckedChanged += gcnew System::EventHandler(this, &BitForm::checkBoxDec_CheckedChanged);
+			// 
+			// checkBoxHexa
+			// 
+			this->checkBoxHexa->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->checkBoxHexa->Location = System::Drawing::Point(23, 262);
+			this->checkBoxHexa->Name = L"checkBoxHexa";
+			this->checkBoxHexa->Size = System::Drawing::Size(150, 44);
+			this->checkBoxHexa->TabIndex = 20;
+			this->checkBoxHexa->Text = L"Hexadecimal";
+			this->checkBoxHexa->UseVisualStyleBackColor = true;
+			this->checkBoxHexa->CheckedChanged += gcnew System::EventHandler(this, &BitForm::checkBoxHexa_CheckedChanged);
+			// 
+			// checkBoxBin
+			// 
+			this->checkBoxBin->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->checkBoxBin->Location = System::Drawing::Point(23, 162);
+			this->checkBoxBin->Name = L"checkBoxBin";
+			this->checkBoxBin->Size = System::Drawing::Size(100, 44);
+			this->checkBoxBin->TabIndex = 21;
+			this->checkBoxBin->Text = L"Binary";
+			this->checkBoxBin->UseVisualStyleBackColor = true;
+			this->checkBoxBin->CheckedChanged += gcnew System::EventHandler(this, &BitForm::checkBoxBin_CheckedChanged);
+			// 
+			// InputFormatLabel
+			// 
+			this->InputFormatLabel->AutoSize = true;
+			this->InputFormatLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
+			this->InputFormatLabel->Location = System::Drawing::Point(18, 115);
+			this->InputFormatLabel->Name = L"InputFormatLabel";
+			this->InputFormatLabel->Size = System::Drawing::Size(134, 26);
+			this->InputFormatLabel->TabIndex = 22;
+			this->InputFormatLabel->Text = L"Input format:";
 			// 
 			// BitForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(918, 648);
-			this->Controls->Add(this->checkedListBox1);
+			this->Controls->Add(this->InputFormatLabel);
+			this->Controls->Add(this->checkBoxBin);
+			this->Controls->Add(this->checkBoxHexa);
+			this->Controls->Add(this->checkBoxDec);
 			this->Controls->Add(this->BackButton);
 			this->Controls->Add(this->ShiftLButton);
 			this->Controls->Add(this->ShiftRButton);
@@ -413,16 +460,54 @@ private: System::Void AndButton_Click(System::Object^ sender, System::EventArgs^
 	
 }
 private: System::Void textBox1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
-	if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57) ))
-	{
-		e->Handled = true;
+	if (checkBoxDec->Checked) {
+
+		if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57)))
+		{
+			e->Handled = true;
+
+		}
+	}
+	else if (checkBoxBin->Checked) {
+		if (!(e->KeyChar == 8 || (e->KeyChar == 48 || e->KeyChar == 49)))
+		{
+			e->Handled = true;
+
+		}
+
+	}
+	else {
+		if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57) ||(e->KeyChar >= 97 && e->KeyChar <= 102)))
+		{
+			e->Handled = true;
+
+		}
 
 	}
 }
 private: System::Void textBox2_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
-	if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57)))
-	{
-		e->Handled = true;
+	if (checkBoxDec->Checked) {
+
+		if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57)))
+		{
+			e->Handled = true;
+
+		}
+	}
+	else if (checkBoxBin->Checked) {
+		if (!(e->KeyChar == 8 || (e->KeyChar == 48 || e->KeyChar == 49)))
+		{
+			e->Handled = true;
+
+		}
+
+	}
+	else {
+		if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57) || (e->KeyChar >= 97 && e->KeyChar <= 102)))
+		{
+			e->Handled = true;
+
+		}
 
 	}
 }
@@ -594,6 +679,33 @@ private: System::Void NotButton_Click(System::Object^ sender, System::EventArgs^
 		textBoxBinary->Text == "0";
 		textBoxHexa->Text == "0";
 	}
+}
+private: System::Void checkBoxDec_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+
+	if (checkBoxDec->Checked) {
+		checkBoxBin->Checked = false;
+		checkBoxHexa->Checked = false;
+	}
+	textBox1->Text = "";
+	textBox2->Text = "";
+}
+private: System::Void checkBoxBin_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	if (checkBoxBin->Checked) {
+		checkBoxDec->Checked = false;
+		checkBoxHexa->Checked = false;
+	}
+
+	textBox1->Text = "";
+	textBox2->Text = "";
+}
+private: System::Void checkBoxHexa_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	if (checkBoxHexa->Checked) {
+		checkBoxBin->Checked = false;
+		checkBoxDec->Checked = false;
+	}
+
+	textBox1->Text = "";
+	textBox2->Text = "";
 }
 };
 }
