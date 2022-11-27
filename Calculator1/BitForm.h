@@ -334,11 +334,12 @@ namespace Calculator1 {
 			this->checkBoxDec->TabIndex = 19;
 			this->checkBoxDec->Text = L"Decimal";
 			this->checkBoxDec->UseVisualStyleBackColor = true;
-			this->checkBoxDec->Visible = false;
 			this->checkBoxDec->CheckedChanged += gcnew System::EventHandler(this, &BitForm::checkBoxDec_CheckedChanged);
 			// 
 			// checkBoxHexa
 			// 
+			this->checkBoxHexa->Checked = true;
+			this->checkBoxHexa->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->checkBoxHexa->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
 			this->checkBoxHexa->Location = System::Drawing::Point(23, 262);
@@ -347,11 +348,12 @@ namespace Calculator1 {
 			this->checkBoxHexa->TabIndex = 20;
 			this->checkBoxHexa->Text = L"Hexadecimal";
 			this->checkBoxHexa->UseVisualStyleBackColor = true;
-			this->checkBoxHexa->Visible = false;
 			this->checkBoxHexa->CheckedChanged += gcnew System::EventHandler(this, &BitForm::checkBoxHexa_CheckedChanged);
 			// 
 			// checkBoxBin
 			// 
+			this->checkBoxBin->Checked = true;
+			this->checkBoxBin->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->checkBoxBin->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(238)));
 			this->checkBoxBin->Location = System::Drawing::Point(23, 162);
@@ -360,7 +362,6 @@ namespace Calculator1 {
 			this->checkBoxBin->TabIndex = 21;
 			this->checkBoxBin->Text = L"Binary";
 			this->checkBoxBin->UseVisualStyleBackColor = true;
-			this->checkBoxBin->Visible = false;
 			this->checkBoxBin->CheckedChanged += gcnew System::EventHandler(this, &BitForm::checkBoxBin_CheckedChanged);
 			// 
 			// InputFormatLabel
@@ -370,10 +371,9 @@ namespace Calculator1 {
 				static_cast<System::Byte>(238)));
 			this->InputFormatLabel->Location = System::Drawing::Point(18, 115);
 			this->InputFormatLabel->Name = L"InputFormatLabel";
-			this->InputFormatLabel->Size = System::Drawing::Size(134, 26);
+			this->InputFormatLabel->Size = System::Drawing::Size(151, 26);
 			this->InputFormatLabel->TabIndex = 22;
-			this->InputFormatLabel->Text = L"Input format:";
-			this->InputFormatLabel->Visible = false;
+			this->InputFormatLabel->Text = L"Output format:";
 			// 
 			// comboBox1
 			// 
@@ -538,9 +538,12 @@ private: System::Void AndButton_Click(System::Object^ sender, System::EventArgs^
 
 			
 			//decimal output
-			textBoxDecimal->Text = System::Convert::ToString(result);
-
+			if (checkBoxDec->Checked) {
+				textBoxDecimal->Text = System::Convert::ToString(result);
+			}
+			else { textBoxDecimal->Text = ""; }
 			//binary outpout
+			if (checkBoxBin->Checked) {
 			std::string binary = std::bitset<64>(result).to_string();
 			//zeroDeleter(binary);
 			while (binary.at(0) == '0') {
@@ -548,13 +551,17 @@ private: System::Void AndButton_Click(System::Object^ sender, System::EventArgs^
 			}
 			binout = marshal_as<String^>(binary);
 			textBoxBinary->Text = binout;
+			}
+			else { textBoxBinary->Text = ""; }
 
 			//hexa outpout
+			if (checkBoxHexa->Checked) {
 			std::stringstream ss;
 			ss << std::hex << result;
 			string hexout(ss.str());
 			textBoxHexa->Text = marshal_as<String^>(hexout);
-
+			}
+			else { textBoxHexa->Text = ""; }
 
 		}
 		else {
@@ -682,22 +689,30 @@ private: System::Void OrButton_Click(System::Object^ sender, System::EventArgs^ 
 			result = firstNumber | secondNumber;
 
 			//decimal output
-			textBoxDecimal->Text = System::Convert::ToString(result);
-
-			//binary output
-			std::string binary = std::bitset<64>(result).to_string();
-			//zeroDeleter(binary);
-			while (binary.at(0) == '0') {
-				binary.erase(0, 1);
+			if (checkBoxDec->Checked) {
+				textBoxDecimal->Text = System::Convert::ToString(result);
 			}
-			binout = marshal_as<String^>(binary);
-			textBoxBinary->Text = binout;
+			else { textBoxDecimal->Text = ""; }
+			//binary outpout
+			if (checkBoxBin->Checked) {
+				std::string binary = std::bitset<64>(result).to_string();
+				//zeroDeleter(binary);
+				while (binary.at(0) == '0') {
+					binary.erase(0, 1);
+				}
+				binout = marshal_as<String^>(binary);
+				textBoxBinary->Text = binout;
+			}
+			else { textBoxBinary->Text = ""; }
 
 			//hexa outpout
-			std::stringstream ss;
-			ss << std::hex << result;
-			string hexout(ss.str());
-			textBoxHexa->Text = marshal_as<String^>(hexout);
+			if (checkBoxHexa->Checked) {
+				std::stringstream ss;
+				ss << std::hex << result;
+				string hexout(ss.str());
+				textBoxHexa->Text = marshal_as<String^>(hexout);
+			}
+			else { textBoxHexa->Text = ""; }
 		}
 		else {
 			MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
@@ -777,23 +792,32 @@ private: System::Void XorButton_Click(System::Object^ sender, System::EventArgs^
 			}
 
 			result = firstNumber ^ secondNumber;
-			//decimal output
-			textBoxDecimal->Text = System::Convert::ToString(result);
 
-			//binary output
-			std::string binary = std::bitset<64>(result).to_string();
-			//zeroDeleter(binary);
-			while (binary.at(0) == '0') {
-				binary.erase(0, 1);
+			//decimal output
+			if (checkBoxDec->Checked) {
+				textBoxDecimal->Text = System::Convert::ToString(result);
 			}
-			binout = marshal_as<String^>(binary);
-			textBoxBinary->Text = binout;
+			else { textBoxDecimal->Text = ""; }
+			//binary outpout
+			if (checkBoxBin->Checked) {
+				std::string binary = std::bitset<64>(result).to_string();
+				//zeroDeleter(binary);
+				while (binary.at(0) == '0') {
+					binary.erase(0, 1);
+				}
+				binout = marshal_as<String^>(binary);
+				textBoxBinary->Text = binout;
+			}
+			else { textBoxBinary->Text = ""; }
 
 			//hexa outpout
-			std::stringstream ss;
-			ss << std::hex << result;
-			string hexout(ss.str());
-			textBoxHexa->Text = marshal_as<String^>(hexout);
+			if (checkBoxHexa->Checked) {
+				std::stringstream ss;
+				ss << std::hex << result;
+				string hexout(ss.str());
+				textBoxHexa->Text = marshal_as<String^>(hexout);
+			}
+			else { textBoxHexa->Text = ""; }
 		}
 		else {
 			MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
@@ -873,22 +897,30 @@ private: System::Void ShiftLButton_Click(System::Object^ sender, System::EventAr
 			result = firstNumber << secondNumber;
 
 			//decimal output
-			textBoxDecimal->Text = System::Convert::ToString(result);
-
-			//binary output
-			std::string binary = std::bitset<64>(result).to_string();
-			//zeroDeleter(binary);
-			while (binary.at(0) == '0') {
-				binary.erase(0, 1);
+			if (checkBoxDec->Checked) {
+				textBoxDecimal->Text = System::Convert::ToString(result);
 			}
-			binout = marshal_as<String^>(binary);
-			textBoxBinary->Text = binout;
+			else { textBoxDecimal->Text = ""; }
+			//binary outpout
+			if (checkBoxBin->Checked) {
+				std::string binary = std::bitset<64>(result).to_string();
+				//zeroDeleter(binary);
+				while (binary.at(0) == '0') {
+					binary.erase(0, 1);
+				}
+				binout = marshal_as<String^>(binary);
+				textBoxBinary->Text = binout;
+			}
+			else { textBoxBinary->Text = ""; }
 
 			//hexa outpout
-			std::stringstream ss;
-			ss << std::hex << result;
-			string hexout(ss.str());
-			textBoxHexa->Text = marshal_as<String^>(hexout);
+			if (checkBoxHexa->Checked) {
+				std::stringstream ss;
+				ss << std::hex << result;
+				string hexout(ss.str());
+				textBoxHexa->Text = marshal_as<String^>(hexout);
+			}
+			else { textBoxHexa->Text = ""; }
 		}
 		else {
 			MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
@@ -968,22 +1000,30 @@ private: System::Void ShiftRButton_Click(System::Object^ sender, System::EventAr
 			result = firstNumber >> secondNumber;
 
 			//decimal output
-			textBoxDecimal->Text = System::Convert::ToString(result);
-
-			//binary output
-			std::string binary = std::bitset<64>(result).to_string();
-			//zeroDeleter(binary);
-			while (binary.at(0) == '0') {
-				binary.erase(0, 1);
+			if (checkBoxDec->Checked) {
+				textBoxDecimal->Text = System::Convert::ToString(result);
 			}
-			binout = marshal_as<String^>(binary);
-			textBoxBinary->Text = binout;
+			else { textBoxDecimal->Text = ""; }
+			//binary outpout
+			if (checkBoxBin->Checked) {
+				std::string binary = std::bitset<64>(result).to_string();
+				//zeroDeleter(binary);
+				while (binary.at(0) == '0') {
+					binary.erase(0, 1);
+				}
+				binout = marshal_as<String^>(binary);
+				textBoxBinary->Text = binout;
+			}
+			else { textBoxBinary->Text = ""; }
 
 			//hexa outpout
-			std::stringstream ss;
-			ss << std::hex << result;
-			string hexout(ss.str());
-			textBoxHexa->Text = marshal_as<String^>(hexout);
+			if (checkBoxHexa->Checked) {
+				std::stringstream ss;
+				ss << std::hex << result;
+				string hexout(ss.str());
+				textBoxHexa->Text = marshal_as<String^>(hexout);
+			}
+			else { textBoxHexa->Text = ""; }
 		}
 		else {
 			MessageBox::Show("Please enter numbers in both boxes", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
@@ -1032,22 +1072,30 @@ private: System::Void NotButton_Click(System::Object^ sender, System::EventArgs^
 			result = ~firstNumber;
 
 			//decimal output
-			textBoxDecimal->Text = System::Convert::ToString(result);
-
-			//binary output
-			std::string binary = std::bitset<64>(result).to_string();
-			//zeroDeleter(binary);
-			while (binary.at(0) == '0') {
-				binary.erase(0, 1);
+			if (checkBoxDec->Checked) {
+				textBoxDecimal->Text = System::Convert::ToString(result);
 			}
-			binout = marshal_as<String^>(binary);
-			textBoxBinary->Text = binout;
+			else { textBoxDecimal->Text = ""; }
+			//binary outpout
+			if (checkBoxBin->Checked) {
+				std::string binary = std::bitset<64>(result).to_string();
+				//zeroDeleter(binary);
+				while (binary.at(0) == '0') {
+					binary.erase(0, 1);
+				}
+				binout = marshal_as<String^>(binary);
+				textBoxBinary->Text = binout;
+			}
+			else { textBoxBinary->Text = ""; }
 
 			//hexa outpout
-			std::stringstream ss;
-			ss << std::hex << result;
-			string hexout(ss.str());
-			textBoxHexa->Text = marshal_as<String^>(hexout);
+			if (checkBoxHexa->Checked) {
+				std::stringstream ss;
+				ss << std::hex << result;
+				string hexout(ss.str());
+				textBoxHexa->Text = marshal_as<String^>(hexout);
+			}
+			else { textBoxHexa->Text = ""; }
 		}
 		else {
 			MessageBox::Show("Enter your number into ONLY the 'Number 1' field ", "Error!", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
@@ -1063,30 +1111,30 @@ private: System::Void NotButton_Click(System::Object^ sender, System::EventArgs^
 }
 private: System::Void checkBoxDec_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 
-	if (checkBoxDec->Checked) {
+	/*if (checkBoxDec->Checked) {
 		checkBoxBin->Checked = false;
 		checkBoxHexa->Checked = false;
 	}
 	textBox1->Text = "";
-	textBox2->Text = "";
+	textBox2->Text = "";*/
 }
 private: System::Void checkBoxBin_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-	if (checkBoxBin->Checked) {
+	/*if (checkBoxBin->Checked) {
 		checkBoxDec->Checked = false;
 		checkBoxHexa->Checked = false;
 	}
 
 	textBox1->Text = "";
-	textBox2->Text = "";
+	textBox2->Text = "";*/
 }
 private: System::Void checkBoxHexa_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-	if (checkBoxHexa->Checked) {
+	/*if (checkBoxHexa->Checked) {
 		checkBoxBin->Checked = false;
 		checkBoxDec->Checked = false;
 	}
 
 	textBox1->Text = "";
-	textBox2->Text = "";
+	textBox2->Text = "";*/
 }
 private: System::Void comboBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 	textBox1->Text = "";
