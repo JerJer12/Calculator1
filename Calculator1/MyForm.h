@@ -589,6 +589,7 @@ namespace Calculator1 {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->ClientSize = System::Drawing::Size(749, 597);
 			this->Controls->Add(this->rBitShiftButton);
 			this->Controls->Add(this->lBitShiftButton);

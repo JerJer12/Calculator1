@@ -407,6 +407,7 @@ namespace Calculator1 {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->ClientSize = System::Drawing::Size(1109, 648);
 			this->Controls->Add(this->comboBox2);
 			this->Controls->Add(this->comboBox1);
@@ -443,6 +444,7 @@ namespace Calculator1 {
 #pragma endregion
 
 		int firstNumber, secondNumber, result;
+		//double result;
 		String^ binout;
 	
 
