@@ -6,6 +6,7 @@
 #include <msclr\marshal_cppstd.h>
 #include <msclr\marshal.h>
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 
 
@@ -333,6 +334,7 @@ namespace Calculator1 {
 			this->checkBoxDec->TabIndex = 19;
 			this->checkBoxDec->Text = L"Decimal";
 			this->checkBoxDec->UseVisualStyleBackColor = true;
+			this->checkBoxDec->Visible = false;
 			this->checkBoxDec->CheckedChanged += gcnew System::EventHandler(this, &BitForm::checkBoxDec_CheckedChanged);
 			// 
 			// checkBoxHexa
@@ -345,6 +347,7 @@ namespace Calculator1 {
 			this->checkBoxHexa->TabIndex = 20;
 			this->checkBoxHexa->Text = L"Hexadecimal";
 			this->checkBoxHexa->UseVisualStyleBackColor = true;
+			this->checkBoxHexa->Visible = false;
 			this->checkBoxHexa->CheckedChanged += gcnew System::EventHandler(this, &BitForm::checkBoxHexa_CheckedChanged);
 			// 
 			// checkBoxBin
@@ -357,6 +360,7 @@ namespace Calculator1 {
 			this->checkBoxBin->TabIndex = 21;
 			this->checkBoxBin->Text = L"Binary";
 			this->checkBoxBin->UseVisualStyleBackColor = true;
+			this->checkBoxBin->Visible = false;
 			this->checkBoxBin->CheckedChanged += gcnew System::EventHandler(this, &BitForm::checkBoxBin_CheckedChanged);
 			// 
 			// InputFormatLabel
@@ -369,6 +373,7 @@ namespace Calculator1 {
 			this->InputFormatLabel->Size = System::Drawing::Size(134, 26);
 			this->InputFormatLabel->TabIndex = 22;
 			this->InputFormatLabel->Text = L"Input format:";
+			this->InputFormatLabel->Visible = false;
 			// 
 			// comboBox1
 			// 
@@ -439,6 +444,7 @@ namespace Calculator1 {
 
 		int firstNumber, secondNumber, result;
 		String^ binout;
+	
 
 
 		/* private: std::string zeroDeleter(string binary) {
@@ -471,6 +477,7 @@ private: System::Void AndButton_Click(System::Object^ sender, System::EventArgs^
 			if (comboBox1->SelectedIndex == 1)/* (checkBoxDec->Checked)*/ {
 				firstNumber = Int64::Parse(textBox1->Text);
 			}
+			//binary input
 			else if (comboBox1->SelectedIndex == 0)/* (checkBoxBin->Checked)*/ {
 				int dec1 = 0;
 
@@ -485,22 +492,25 @@ private: System::Void AndButton_Click(System::Object^ sender, System::EventArgs^
 
 				firstNumber = dec1;
 			}
+			//hexadecimal input
 			else if (comboBox1->SelectedIndex == 2) {
+				std::stringstream sin1;
+				int hexain1;
+				std::string hexastring1 = msclr::interop::marshal_as<std::string>(textBox1->Text);
+				sin1 << hexastring1;
+				sin1 >> hex >> hexain1;
+				firstNumber = hexain1;
 
-			
-			
 			}
 
-
+			//decimal input
 			if (comboBox2->SelectedIndex == 1) {
 				secondNumber = Int64::Parse(textBox2->Text);
 			}
-
-			else if (comboBox1->SelectedIndex == 0)/*(checkBoxBin->Checked)*/ {
+			//biary input
+			else if (comboBox2->SelectedIndex == 0)/*(checkBoxBin->Checked)*/ {
 				
 				int dec2 = 0;
-
-				
 				int base2 = 1;
 
 				int len2 = textBox2->Text->Length;
@@ -512,7 +522,14 @@ private: System::Void AndButton_Click(System::Object^ sender, System::EventArgs^
 				
 				secondNumber = dec2;
 			}
+			//hexadecimal input
 			else if (comboBox2->SelectedIndex == 2) {
+				std::stringstream sin2;
+				int hexain2;
+				std::string hexastring2 = msclr::interop::marshal_as<std::string>(textBox2->Text);
+				sin2 << hexastring2;
+				sin2 >> hex >> hexain2;
+				secondNumber = hexain2;
 
 			}
 			result = firstNumber & secondNumber;
@@ -576,20 +593,20 @@ private: System::Void textBox1_KeyPress(System::Object^ sender, System::Windows:
 	
 }
 private: System::Void textBox2_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
-	if (comboBox1->SelectedIndex == 1) {
+	if (comboBox2->SelectedIndex == 1) {
 
 		if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57)))
 		{
 			e->Handled = true;
 		}
 	}
-	else if (comboBox1->SelectedIndex == 0) {
+	else if (comboBox2->SelectedIndex == 0) {
 		if (!(e->KeyChar == 8 || (e->KeyChar == 48 || e->KeyChar == 49)))
 		{
 			e->Handled = true;
 		}
 	}
-	else  if (comboBox1->SelectedIndex == 2) {
+	else  if (comboBox2->SelectedIndex == 2) {
 		if (!(e->KeyChar == 8 || (e->KeyChar >= 48 && e->KeyChar <= 57) || (e->KeyChar >= 97 && e->KeyChar <= 102)))
 		{
 			e->Handled = true;
@@ -600,8 +617,66 @@ private: System::Void textBox2_KeyPress(System::Object^ sender, System::Windows:
 private: System::Void OrButton_Click(System::Object^ sender, System::EventArgs^ e) {
 	try {
 		if (textBox1->Text != "" && textBox2->Text != "") {
-			firstNumber = Int64::Parse(textBox1->Text);
-			secondNumber = Int64::Parse(textBox2->Text);
+
+			//decimal input
+			if (comboBox1->SelectedIndex == 1)/* (checkBoxDec->Checked)*/ {
+				firstNumber = Int64::Parse(textBox1->Text);
+			}
+			//binary input
+			else if (comboBox1->SelectedIndex == 0)/* (checkBoxBin->Checked)*/ {
+				int dec1 = 0;
+
+				int base1 = 1;
+
+				int len1 = textBox1->Text->Length;
+				for (int i = len1 - 1; i >= 0; i--) {
+					if (textBox1->Text[i] == '1')
+						dec1 += base1;
+					base1 = base1 * 2;
+				}
+
+				firstNumber = dec1;
+			}
+			//hexadecimal input
+			else if (comboBox1->SelectedIndex == 2) {
+				std::stringstream sin1;
+				int hexain1;
+				std::string hexastring1 = msclr::interop::marshal_as<std::string>(textBox1->Text);
+				sin1 << hexastring1;
+				sin1 >> hex >> hexain1;
+				firstNumber = hexain1;
+
+			}
+
+			//decimal input
+			if (comboBox2->SelectedIndex == 1) {
+				secondNumber = Int64::Parse(textBox2->Text);
+			}
+			//biary input
+			else if (comboBox2->SelectedIndex == 0)/*(checkBoxBin->Checked)*/ {
+
+				int dec2 = 0;
+				int base2 = 1;
+
+				int len2 = textBox2->Text->Length;
+				for (int i = len2 - 1; i >= 0; i--) {
+					if (textBox2->Text[i] == '1')
+						dec2 += base2;
+					base2 = base2 * 2;
+				}
+
+				secondNumber = dec2;
+			}
+			//hexadecimal input
+			else if (comboBox2->SelectedIndex == 2) {
+				std::stringstream sin2;
+				int hexain2;
+				std::string hexastring2 = msclr::interop::marshal_as<std::string>(textBox2->Text);
+				sin2 << hexastring2;
+				sin2 >> hex >> hexain2;
+				secondNumber = hexain2;
+
+			}
 			result = firstNumber | secondNumber;
 
 			//decimal output
@@ -635,13 +710,72 @@ private: System::Void OrButton_Click(System::Object^ sender, System::EventArgs^ 
 	}
 }
 private: System::Void XorButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	
 	try {
 		if (textBox1->Text != "" && textBox2->Text != "") {
-			firstNumber = Int64::Parse(textBox1->Text);
-			secondNumber = Int64::Parse(textBox2->Text);
 
-			//decimal output
+			//decimal input
+			if (comboBox1->SelectedIndex == 1)/* (checkBoxDec->Checked)*/ {
+				firstNumber = Int64::Parse(textBox1->Text);
+			}
+			//binary input
+			else if (comboBox1->SelectedIndex == 0)/* (checkBoxBin->Checked)*/ {
+				int dec1 = 0;
+
+				int base1 = 1;
+
+				int len1 = textBox1->Text->Length;
+				for (int i = len1 - 1; i >= 0; i--) {
+					if (textBox1->Text[i] == '1')
+						dec1 += base1;
+					base1 = base1 * 2;
+				}
+
+				firstNumber = dec1;
+			}
+			//hexadecimal input
+			else if (comboBox1->SelectedIndex == 2) {
+				std::stringstream sin1;
+				int hexain1;
+				std::string hexastring1 = msclr::interop::marshal_as<std::string>(textBox1->Text);
+				sin1 << hexastring1;
+				sin1 >> hex >> hexain1;
+				firstNumber = hexain1;
+
+			}
+
+			//decimal input
+			if (comboBox2->SelectedIndex == 1) {
+				secondNumber = Int64::Parse(textBox2->Text);
+			}
+			//biary input
+			else if (comboBox2->SelectedIndex == 0)/*(checkBoxBin->Checked)*/ {
+
+				int dec2 = 0;
+				int base2 = 1;
+
+				int len2 = textBox2->Text->Length;
+				for (int i = len2 - 1; i >= 0; i--) {
+					if (textBox2->Text[i] == '1')
+						dec2 += base2;
+					base2 = base2 * 2;
+				}
+
+				secondNumber = dec2;
+			}
+			//hexadecimal input
+			else if (comboBox2->SelectedIndex == 2) {
+				std::stringstream sin2;
+				int hexain2;
+				std::string hexastring2 = msclr::interop::marshal_as<std::string>(textBox2->Text);
+				sin2 << hexastring2;
+				sin2 >> hex >> hexain2;
+				secondNumber = hexain2;
+
+			}
+
 			result = firstNumber ^ secondNumber;
+			//decimal output
 			textBoxDecimal->Text = System::Convert::ToString(result);
 
 			//binary output
@@ -674,11 +808,69 @@ private: System::Void XorButton_Click(System::Object^ sender, System::EventArgs^
 private: System::Void ShiftLButton_Click(System::Object^ sender, System::EventArgs^ e) {
 	try {
 		if (textBox1->Text != "" && textBox2->Text != "") {
-			firstNumber = Int64::Parse(textBox1->Text);
-			secondNumber = Int64::Parse(textBox2->Text);
+
+			//decimal input
+			if (comboBox1->SelectedIndex == 1)/* (checkBoxDec->Checked)*/ {
+				firstNumber = Int64::Parse(textBox1->Text);
+			}
+			//binary input
+			else if (comboBox1->SelectedIndex == 0)/* (checkBoxBin->Checked)*/ {
+				int dec1 = 0;
+
+				int base1 = 1;
+
+				int len1 = textBox1->Text->Length;
+				for (int i = len1 - 1; i >= 0; i--) {
+					if (textBox1->Text[i] == '1')
+						dec1 += base1;
+					base1 = base1 * 2;
+				}
+
+				firstNumber = dec1;
+			}
+			//hexadecimal input
+			else if (comboBox1->SelectedIndex == 2) {
+				std::stringstream sin1;
+				int hexain1;
+				std::string hexastring1 = msclr::interop::marshal_as<std::string>(textBox1->Text);
+				sin1 << hexastring1;
+				sin1 >> hex >> hexain1;
+				firstNumber = hexain1;
+
+			}
+
+			//decimal input
+			if (comboBox2->SelectedIndex == 1) {
+				secondNumber = Int64::Parse(textBox2->Text);
+			}
+			//biary input
+			else if (comboBox2->SelectedIndex == 0)/*(checkBoxBin->Checked)*/ {
+
+				int dec2 = 0;
+				int base2 = 1;
+
+				int len2 = textBox2->Text->Length;
+				for (int i = len2 - 1; i >= 0; i--) {
+					if (textBox2->Text[i] == '1')
+						dec2 += base2;
+					base2 = base2 * 2;
+				}
+
+				secondNumber = dec2;
+			}
+			//hexadecimal input
+			else if (comboBox2->SelectedIndex == 2) {
+				std::stringstream sin2;
+				int hexain2;
+				std::string hexastring2 = msclr::interop::marshal_as<std::string>(textBox2->Text);
+				sin2 << hexastring2;
+				sin2 >> hex >> hexain2;
+				secondNumber = hexain2;
+
+			}
+			result = firstNumber << secondNumber;
 
 			//decimal output
-			result = firstNumber << secondNumber;
 			textBoxDecimal->Text = System::Convert::ToString(result);
 
 			//binary output
@@ -711,8 +903,66 @@ private: System::Void ShiftLButton_Click(System::Object^ sender, System::EventAr
 private: System::Void ShiftRButton_Click(System::Object^ sender, System::EventArgs^ e) {
 	try {
 		if (textBox1->Text != "" && textBox2->Text != "") {
-			firstNumber = Int64::Parse(textBox1->Text);
-			secondNumber = Int64::Parse(textBox2->Text);
+
+			//decimal input
+			if (comboBox1->SelectedIndex == 1)/* (checkBoxDec->Checked)*/ {
+				firstNumber = Int64::Parse(textBox1->Text);
+			}
+			//binary input
+			else if (comboBox1->SelectedIndex == 0)/* (checkBoxBin->Checked)*/ {
+				int dec1 = 0;
+
+				int base1 = 1;
+
+				int len1 = textBox1->Text->Length;
+				for (int i = len1 - 1; i >= 0; i--) {
+					if (textBox1->Text[i] == '1')
+						dec1 += base1;
+					base1 = base1 * 2;
+				}
+
+				firstNumber = dec1;
+			}
+			//hexadecimal input
+			else if (comboBox1->SelectedIndex == 2) {
+				std::stringstream sin1;
+				int hexain1;
+				std::string hexastring1 = msclr::interop::marshal_as<std::string>(textBox1->Text);
+				sin1 << hexastring1;
+				sin1 >> hex >> hexain1;
+				firstNumber = hexain1;
+
+			}
+
+			//decimal input
+			if (comboBox2->SelectedIndex == 1) {
+				secondNumber = Int64::Parse(textBox2->Text);
+			}
+			//biary input
+			else if (comboBox2->SelectedIndex == 0)/*(checkBoxBin->Checked)*/ {
+
+				int dec2 = 0;
+				int base2 = 1;
+
+				int len2 = textBox2->Text->Length;
+				for (int i = len2 - 1; i >= 0; i--) {
+					if (textBox2->Text[i] == '1')
+						dec2 += base2;
+					base2 = base2 * 2;
+				}
+
+				secondNumber = dec2;
+			}
+			//hexadecimal input
+			else if (comboBox2->SelectedIndex == 2) {
+				std::stringstream sin2;
+				int hexain2;
+				std::string hexastring2 = msclr::interop::marshal_as<std::string>(textBox2->Text);
+				sin2 << hexastring2;
+				sin2 >> hex >> hexain2;
+				secondNumber = hexain2;
+
+			}
 			result = firstNumber >> secondNumber;
 
 			//decimal output
@@ -748,7 +998,35 @@ private: System::Void ShiftRButton_Click(System::Object^ sender, System::EventAr
 private: System::Void NotButton_Click(System::Object^ sender, System::EventArgs^ e) {
 	try {
 		if (textBox1->Text != "" && textBox2->Text == "") {
-			firstNumber = Int64::Parse(textBox1->Text);
+			if (comboBox1->SelectedIndex == 1)/* (checkBoxDec->Checked)*/ {
+				firstNumber = Int64::Parse(textBox1->Text);
+			}
+			//binary input
+			else if (comboBox1->SelectedIndex == 0)/* (checkBoxBin->Checked)*/ {
+				int dec1 = 0;
+
+				int base1 = 1;
+
+				int len1 = textBox1->Text->Length;
+				for (int i = len1 - 1; i >= 0; i--) {
+					if (textBox1->Text[i] == '1')
+						dec1 += base1;
+					base1 = base1 * 2;
+				}
+
+				firstNumber = dec1;
+			}
+			//hexadecimal input
+			else if (comboBox1->SelectedIndex == 2) {
+				std::stringstream sin;
+				int hexain;
+				std::string hexastring = msclr::interop::marshal_as<std::string>(textBox1->Text);
+				sin << hexastring;
+				sin >> hex >> hexain;
+				firstNumber = hexain;
+
+			}
+
 			result = ~firstNumber;
 
 			//decimal output
